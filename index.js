@@ -1,106 +1,91 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mobile Navigation Toggle
+    // 1. Generate Dynamic Twinkling Stars Background
+    const starContainer = document.getElementById('star-container');
+    const starCount = window.innerWidth < 768 ? 50 : 150; // Fewer stars on mobile
+
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        // Randomize position, size, and animation duration
+        const size = Math.random() * 2.5 + 0.5;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.animationDuration = `${Math.random() * 3 + 1}s`;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        starContainer.appendChild(star);
+    }
+
+    // 2. Scroll Reveal Observer (Makes elements fade/slide in as you scroll down)
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+
+    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, revealOptions);
+
+    revealElements.forEach(el => revealOnScroll.observe(el));
+
+    // 3. Parallax Scroll Effect for Celestial Elements
+    const parallaxElements = document.querySelectorAll('.parallax');
+    window.addEventListener('scroll', () => {
+        let scrollY = window.scrollY;
+        parallaxElements.forEach(el => {
+            let speed = el.getAttribute('data-speed');
+            // Move elements at different speeds based on scroll
+            el.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+    });
+
+    // 4. Mobile Menu Toggle
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
-
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             const icon = menuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-xmark');
-            }
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
         });
     }
 
-    // 2. Active Link Highlight on Scroll
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 120;
-            if (window.scrollY >= sectionTop) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // 3. Multi-Attempt Image Loader & Fallback Path Handler
+    // 5. Image Fallback (Ensures Photo loads regardless of extension)
     const profileImg = document.getElementById('astrologerImg');
     if (profileImg) {
-        const potentialSources = [
-            'monika.jpg',
-            'monika.png',
-            'Monika.jpg',
-            'Monika.png',
-            'assets/monika.jpg',
-            'assets/monika.png'
-        ];
-        
-        let attemptIndex = 0;
-
-        profileImg.addEventListener('error', function handleImageError() {
-            attemptIndex++;
-            if (attemptIndex < potentialSources.length) {
-                console.warn(`Image load failed. Trying alternative path: ${potentialSources[attemptIndex]}`);
-                this.src = potentialSources[attemptIndex];
+        const paths = ['monika.jpg', 'monika.png', 'Monika.jpg', 'Monika.png'];
+        let attempt = 0;
+        profileImg.addEventListener('error', function() {
+            attempt++;
+            if (attempt < paths.length) {
+                this.src = paths[attempt];
             } else {
-                console.error('All image paths failed. Generating high-quality SVG fallback placeholder...');
-                // Clean SVG fallback so the layout never breaks
-                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500"><rect width="400" height="500" fill="%23f7eed8"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Cinzel, serif" font-size="28" fill="%23c59b27">Astrologer Monika</text><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%2364748b">Vedic Guidance</text></svg>';
+                // If totally broken, create an astrological SVG placeholder
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="%230a0f1d"/><circle cx="200" cy="250" r="100" stroke="%23d4af37" stroke-width="2" fill="none"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Cinzel, serif" font-size="20" fill="%23d4af37">Astrologer Monika</text></svg>';
+                this.style.webkitMaskImage = 'none'; // Remove mask on placeholder
+                this.style.mixBlendMode = 'normal';
             }
         });
     }
 
-    // 4. Subtle Mouse Movement Effect on Holy Leaves
-    const photoWrapper = document.querySelector('.about-photo-wrapper');
-    const leaves = document.querySelectorAll('.holy-leaf');
-
-    if (photoWrapper && leaves.length > 0) {
-        photoWrapper.addEventListener('mousemove', (e) => {
-            const rect = photoWrapper.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-            leaves.forEach((leaf, idx) => {
-                const depth = (idx + 1) * 12;
-                leaf.style.transform = `translate(${x * depth}px, ${y * depth}px) rotate(${x * 20}deg)`;
-            });
-        });
-
-        photoWrapper.addEventListener('mouseleave', () => {
-            leaves.forEach((leaf) => {
-                leaf.style.transform = '';
-            });
-        });
-    }
-
-    // 5. Booking Form Handler
+    // 6. Booking Form Submission
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            const fullName = document.getElementById('fullName').value.trim();
-            const service = document.getElementById('serviceSelect').value;
-
-            if (!fullName || !service) {
-                alert('Please fill out all required fields.');
-                return;
-            }
-
-            alert(`Thank you, ${fullName}! Your consultation request for "${service}" has been successfully submitted.`);
-            bookingForm.reset();
+            const btn = bookingForm.querySelector('.submit-btn');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aligning Stars...';
+            
+            setTimeout(() => {
+                alert("The cosmos have received your request! Astrologer Monika's team will contact you shortly.");
+                btn.innerHTML = 'Unlock My Destiny';
+                bookingForm.reset();
+            }, 1500);
         });
     }
 });
