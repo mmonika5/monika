@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrologer Monika | Celestial Wisdom</title>
+    
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="progress"></div>
+    <div id="glow"></div>
+
+    <!-- Soft Ambient Dust Particles -->
+    <div id="dust-container"></div>
+
+    <!-- Header Navigation -->
+    <header id="header">
+        <a href="#home" class="logo">
+            <i class="fa-solid fa-sun icon-spin"></i>
+            <span>Astrologer Monika ✨</span>
+        </a>
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#journey" class="nav-link">Cosmic Journey</a></li>
+                <li><a href="#tarot" class="nav-link">Tarot</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#booking" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <a href="#booking" class="btn-gold">Book Reading</a>
+            <button class="mobile-toggle" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero relative-section">
+        <div class="hero-wheel"><span style="--i:0">♈</span><span style="--i:1">♉</span><span style="--i:2">♊</span><span style="--i:3">♋</span><span style="--i:4">♌</span><span style="--i:5">♍</span><span style="--i:6">♎</span><span style="--i:7">♏</span><span style="--i:8">♐</span><span style="--i:9">♑</span><span style="--i:10">♒</span><span style="--i:11">♓</span></div>
+        <div class="hero-orbit"><span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span></div>
+        <div class="float-emojis" data-emojis="🔮 🌙 ✨ ⭐ 🪐 🌟 ☀️ 🧿 🪬 🕉️ 🃏 💫"></div>
+        <div class="hero-content reveal">
+            <span class="badge">🕉️ Divine Vedic Guidance & Tarot</span>
+            <h1 class="hero-title">Navigate Your Life's Constellations</h1>
+            <p class="hero-subtitle">Discover clarity, purpose, and peace through the timeless wisdom of Vedic Astrology, tailored for the modern soul.</p>
+            <div class="hero-chips"><span>🔮 Tarot</span><span>🕉️ Vedic</span><span>📜 Kundli</span><span>💎 Remedies</span><span>🌙 <b id="moon">Moon</b></span></div>
+            <div class="hero-cta">
+                <a href="#booking" class="btn-gold">Begin Your Journey</a>
+                <a href="#tarot" class="btn-outline">🔮 Pull a Tarot Card</a>
+            </div>
+        </div>
+        <a href="#about" class="scroll-hint" aria-label="Scroll"><span class="mouse"><i></i></span>Scroll</a>
+        <div class="hero-cards"><span class="mini-card c1">☀️</span><span class="mini-card c2">🌙</span><span class="mini-card c3">⭐</span></div>
+    </section>
+
+    <div class="marquee"><div class="marquee-track"><span>♈ Aries</span><span>♉ Taurus</span><span>♊ Gemini</span><span>♋ Cancer</span><span>♌ Leo</span><span>♍ Virgo</span><span>♎ Libra</span><span>♏ Scorpio</span><span>♐ Sagittarius</span><span>♑ Capricorn</span><span>♒ Aquarius</span><span>♓ Pisces</span></div></div>
+
+    <!-- About Section with Clean, Highly Visible Photo -->
+    <section id="about" class="about relative-section">
+        <div class="about-container reveal">
+            
+            <!-- Elegant Photo Frame (100% visible, no hover fades) -->
+            <div class="about-photo-wrapper parallax" data-speed="-0.08">
+                <div class="halo"><span class="zodiac-wheel"></span><span class="halo-ring"></span></div>
+                <span class="portrait p1" title="Monika 🌙"></span><span class="portrait p2" title="Monika ✨"></span>
+                <span class="orbit-emoji e1">🌙</span><span class="orbit-emoji e2">⭐</span><span class="orbit-emoji e3">🔮</span><span class="orbit-emoji e4">🪐</span>
+                <div class="photo-card tilt">
+                    <div class="photo-inner">
+                        <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo" id="astrologerImg">
+                        <svg class="constellation" viewBox="0 0 100 160" aria-hidden="true"><polyline points="8,20 28,34 46,14 70,30 90,12"/><polyline points="10,120 30,104 52,128 78,108 92,132"/><g><circle cx="8" cy="20" r="1.8"/><circle cx="28" cy="34" r="1.8"/><circle cx="46" cy="14" r="2.2"/><circle cx="70" cy="30" r="1.8"/><circle cx="90" cy="12" r="2.2"/><circle cx="10" cy="120" r="1.8"/><circle cx="30" cy="104" r="1.8"/><circle cx="52" cy="128" r="2.2"/><circle cx="78" cy="108" r="1.8"/><circle cx="92" cy="132" r="1.8"/></g></svg>
+                        <div class="in-sparks"><i>✨</i><i>⭐</i><i>✦</i><i>💫</i><i>✨</i><i>✦</i></div>
+                        <span class="shine"></span>
+                        <span class="in-chip ic1">🔮 Tarot Reader</span>
+                        <span class="in-chip ic2">🕉️ Vedic Expert</span>
+                        <div class="nameplate"><b>Astrologer Monika</b><small>⭐ Kundli • Tarot • Remedies</small></div>
+                    </div>
+                </div>
+                
+                <div class="experience-badge float-anim">
+                    <span class="years">12+</span>
+                    <span class="lbl">Years Mastery ✨</span>
+                </div>
+            </div>
+
+            <!-- About Text -->
+            <div class="about-text">
+                <span class="section-tag">🔮 The Seer</span>
+                <h2>Illuminating The Path Forward</h2>
+                <p>Astrologer Monika seamlessly bridges ancient celestial science with contemporary challenges, providing a grounding light for those navigating uncertainty.</p>
+                <p>With precise Kundli analysis and intuitive foresight, she prescribes practical, powerful remedies to harmonize your career, relationships, and spiritual growth.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>12+</h3>
+                        <p>⏳ Years</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>5k+</h3>
+                        <p>📜 Readings</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>100%</h3>
+                        <p>🤫 Confidential</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCROLLYTELLING: Interactive Solar System Journey -->
+    <section id="journey" class="cosmic-scroll-section">
+        
+        <!-- Sticky Background: The Realistic Solar System -->
+        <div class="sticky-solar-view">
+            <div id="interactive-solar-system" class="solar-system focus-all">
+                <div class="sun-center planet-target" data-target="sun"></div>
+                <div class="orbit orbit-1 planet-target" data-target="mercury"><div class="planet p-mercury"></div></div>
+                <div class="orbit orbit-2 planet-target" data-target="venus"><div class="planet p-venus"></div></div>
+                <div class="orbit orbit-3 planet-target" data-target="earth">
+                    <div class="planet p-earth">
+                        <!-- Moon orbiting Earth -->
+                        <div class="orbit-moon"><div class="planet p-moon"></div></div>
+                    </div>
+                </div>
+                <div class="orbit orbit-4 planet-target" data-target="mars"><div class="planet p-mars"></div></div>
+                <div class="orbit orbit-5 planet-target" data-target="jupiter"><div class="planet p-jupiter"></div></div>
+                <div class="orbit orbit-6 planet-target" data-target="saturn"><div class="planet p-saturn"></div></div>
+            </div>
+        </div>
+
+        <!-- Scrollable Content Overlays -->
+        <div class="scroll-steps">
+            
+            <div class="step" data-planet="all">
+                <div class="step-content">
+                    <span class="section-tag">Cosmic Influences</span>
+                    <h2>🪐 The Solar System</h2>
+                    <p>Scroll down to journey through the celestial bodies that govern our karma, energy, and destiny. Watch the heavens align as you explore.</p>
+                </div>
+            </div>
+
+            <div class="step" data-planet="sun">
+                <div class="step-content">
+                    <h3 class="planet-title"><span class="pe">☀️</span> Sun (Surya)</h3>
+                    <p><strong>Soul, Ego & Vitality.</strong> The blazing center of our existence. It governs your core identity, father figure, authority, and innermost life force. A strong Sun brings leadership and unwavering confidence.</p>
+                </div>
+            </div>
+
+            <div class="step" data-planet="mercury">
+                <div class="step-content">
+                    <h3 class="planet-title"><span class="pe">☿️</span> Mercury (Budha)</h3>
+                    <p><strong>Intellect, Speech & Logic.</strong> The swift messenger of the cosmos. It influences how you communicate, learn, and conduct business. It governs quick wit, mathematics, and adaptability.</p>
+                </div>
+            </div>
+
+            <div class="step" data-planet="venus">
+                <div class="step-content">
+                    <h3 class="planet-title"><span class="pe">💖</span> Venus (Shukra)</h3>
+                    <p><strong>Love, Luxury & Harmony.</strong> The brightest jewel of the sky. Venus dictates romance, artistic inclination, material comforts, and your ability to attract beauty into your life.</p>
+                </div>
+            </div>
+
+            <div class="step" data-planet="earth">
+                <div class="step-content">
+                    <h3 class="planet-title"><span class="pe">🌙</span> Moon (Chandra)</h3>
+                    <p><strong>Mind, Emotions & Mother.</strong> Orbiting our home, the Moon controls the tides of your emotions. It represents your subconscious, intuition, inner peace, and maternal connections.</p>
+                </div>
+            </div>
+
+            <div class="step" data-planet="mars">
+                <div class="step-content">
+                    <h3 class="planet-title"><span class="pe">🔥</span> Mars (Mangal)</h3>
+                    <p><strong>Energy, Courage & Passion.</strong> The red warrior. Mars drives your ambition, physical strength, and willpower. It is the raw, protective energy required to overcome life's obstacles.</p>
+                </div>
+            </div>
+
+            <div class="step" data-planet="jupiter">
+                <div class="step-content">
+                    <h3 class="planet-title"><span class="pe">🍀</span> Jupiter (Guru)</h3>
+                    <p><strong>Wisdom, Wealth & Luck.</strong> The grand benefactor. Jupiter brings spirituality, supreme knowledge, and expansion. Its grace provides fortune and philosophical depth to your journey.</p>
+                </div>
+            </div>
+
+            <div class="step" data-planet="saturn">
+                <div class="step-content">
+                    <h3 class="planet-title"><span class="pe">⏳</span> Saturn (Shani)</h3>
+                    <p><strong>Karma & Discipline.</strong> The ringed teacher. Saturn dispenses life's hardest lessons through delay and perseverance. It forces structure, patience, and karmic justice, ultimately forging diamonds from pressure.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Tarot -->
+    <section id="tarot" class="tarot relative-section">
+        <div class="section-header reveal">
+            <span class="section-tag">🃏 Tarot Reading</span>
+            <h2>Pull Your Card Of The Day</h2>
+            <p>Hover to peek, tap to flip. Or let the universe choose for you.</p>
+        </div>
+        <div class="tarot-table reveal" id="tarot-table"></div>
+        <div class="tarot-actions reveal">
+            <button class="btn-gold" id="shuffle-btn">🔀 Shuffle & Draw</button>
+            <p id="tarot-msg" class="tarot-msg">Your card will whisper its message here ✨</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services relative-section">
+        <div class="section-header reveal">
+            <span class="section-tag">Consultations</span>
+            <h2>Astrological Offerings</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="icon-wrap"><i class="fa-solid fa-scroll"></i></div><span class="svc-emoji">📜</span>
+                <h3>Kundli & Birth Chart</h3>
+                <p>Deep dive into your D1 and divisional charts to decode your life's ultimate purpose.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.1s;">
+                <div class="icon-wrap"><i class="fa-solid fa-infinity"></i></div><span class="svc-emoji">💞</span>
+                <h3>Synastry & Matchmaking</h3>
+                <p>Gun Milan and compatibility checks to ensure harmonic and enduring partnerships.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.2s;">
+                <div class="icon-wrap"><i class="fa-solid fa-gem"></i></div><span class="svc-emoji">💎</span>
+                <h3>Gemstones & Remedies</h3>
+                <p>Powerful mantras and gemstone prescriptions to pacify negative planetary doshas.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.0s;">
+                <div class="icon-wrap"><i class="fa-solid fa-suitcase"></i></div><span class="svc-emoji">💼</span>
+                <h3>Career & Wealth</h3>
+                <p>Dasha timing for promotions, business launches and financial growth.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.1s;">
+                <div class="icon-wrap"><i class="fa-solid fa-wand-magic-sparkles"></i></div><span class="svc-emoji">🔮</span>
+                <h3>Tarot Guidance</h3>
+                <p>Intuitive card spreads for sudden questions, decisions and clarity.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.2s;">
+                <div class="icon-wrap"><i class="fa-solid fa-calendar-check"></i></div><span class="svc-emoji">🗓️</span>
+                <h3>Muhurat & Rituals</h3>
+                <p>Auspicious dates for weddings, griha pravesh and new beginnings.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voices -->
+    <section class="voices relative-section">
+        <div class="section-header reveal"><span class="section-tag">💬 Kind Words</span><h2>Seekers Speak</h2></div>
+        <div class="voices-grid">
+            <blockquote class="reveal">“Her Kundli reading explained years of confusion in one hour.” <cite>🌟 Anjali, Delhi</cite></blockquote>
+            <blockquote class="reveal" style="transition-delay:.15s">“The remedies were simple and my career finally moved.” <cite>🚀 Rohit, Pune</cite></blockquote>
+            <blockquote class="reveal" style="transition-delay:.3s">“Warm, precise and deeply calming. Highly recommended.” <cite>🌸 Meera, Jaipur</cite></blockquote>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="booking relative-section">
+        <div class="booking-card reveal">
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <h2>🌌 Connect With The Cosmos</h2>
+                <p>Submit your birth details for a profound reading.</p>
+            </div>
+            <form id="booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" required placeholder="Seeker's Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone / WhatsApp</label>
+                        <input type="tel" id="phone" required placeholder="+91 ...">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Exact Time of Birth</label>
+                        <input type="time" id="tob" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>City & Country of Birth</label>
+                    <input type="text" id="pob" required placeholder="e.g. New Delhi, India">
+                </div>
+                <button type="submit" class="btn-gold submit-btn">🔓 Unlock My Destiny</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fa-solid fa-sun"></i> Astrologer Monika
+            </div>
+            <p>Guiding light through the ancient wisdom of Vedic Astrology.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 Astrologer Monika. All Cosmic Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <a href="#home" id="to-top" aria-label="Back to top">🔝</a>
+    <a href="#booking" id="float-book" aria-label="Book">📿</a>
+    <script src="index.js"></script>
+</body>
+</html>
