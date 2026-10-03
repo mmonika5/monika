@@ -29,7 +29,7 @@
             <ul>
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#planets" class="nav-link">Navagraha</a></li>
+                <li><a href="#journey" class="nav-link">Cosmic Journey</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#booking" class="nav-link">Contact</a></li>
             </ul>
@@ -42,27 +42,15 @@
         </div>
     </header>
 
-    <!-- Hero Section with Realistic CSS Solar System -->
+    <!-- Hero Section -->
     <section id="home" class="hero relative-section">
-        
-        <!-- Elegant Realistic CSS Solar System -->
-        <div class="solar-system parallax" data-speed="0.15">
-            <div class="sun-center"></div>
-            <div class="orbit orbit-1"><div class="planet p-mercury"></div></div>
-            <div class="orbit orbit-2"><div class="planet p-venus"></div></div>
-            <div class="orbit orbit-3"><div class="planet p-earth"></div></div>
-            <div class="orbit orbit-4"><div class="planet p-mars"></div></div>
-            <div class="orbit orbit-5"><div class="planet p-jupiter"></div></div>
-            <div class="orbit orbit-6"><div class="planet p-saturn"></div></div>
-        </div>
-        
         <div class="hero-content reveal">
             <span class="badge"><i class="fa-solid fa-om"></i> Divine Vedic Guidance</span>
             <h1 class="hero-title">Navigate Your Life's Constellations</h1>
             <p class="hero-subtitle">Discover clarity, purpose, and peace through the timeless wisdom of Vedic Astrology, tailored for the modern soul.</p>
             <div class="hero-cta">
                 <a href="#booking" class="btn-gold">Begin Your Journey</a>
-                <a href="#planets" class="btn-outline">Explore Navagraha</a>
+                <a href="#journey" class="btn-outline">Explore Planets</a>
             </div>
         </div>
     </section>
@@ -71,7 +59,7 @@
     <section id="about" class="about relative-section">
         <div class="about-container reveal">
             
-            <!-- Elegant Photo Frame (No faded blending, 100% visible) -->
+            <!-- Elegant Photo Frame (100% visible, no hover fades) -->
             <div class="about-photo-wrapper parallax" data-speed="-0.08">
                 <div class="photo-card">
                     <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo" id="astrologerImg">
@@ -108,60 +96,87 @@
         </div>
     </section>
 
-    <!-- The 9 Planets Section (Navagraha) -->
-    <section id="planets" class="planets relative-section">
-        <div class="section-header reveal">
-            <span class="section-tag">Cosmic Influences</span>
-            <h2>The Nine Planets (Navagraha)</h2>
-            <p>The pure celestial bodies that govern our karma and earthly experience.</p>
+    <!-- SCROLLYTELLING: Interactive Solar System Journey -->
+    <section id="journey" class="cosmic-scroll-section">
+        
+        <!-- Sticky Background: The Realistic Solar System -->
+        <div class="sticky-solar-view">
+            <div id="interactive-solar-system" class="solar-system focus-all">
+                <div class="sun-center planet-target" data-target="sun"></div>
+                <div class="orbit orbit-1 planet-target" data-target="mercury"><div class="planet p-mercury"></div></div>
+                <div class="orbit orbit-2 planet-target" data-target="venus"><div class="planet p-venus"></div></div>
+                <div class="orbit orbit-3 planet-target" data-target="earth">
+                    <div class="planet p-earth">
+                        <!-- Moon orbiting Earth -->
+                        <div class="orbit-moon"><div class="planet p-moon"></div></div>
+                    </div>
+                </div>
+                <div class="orbit orbit-4 planet-target" data-target="mars"><div class="planet p-mars"></div></div>
+                <div class="orbit orbit-5 planet-target" data-target="jupiter"><div class="planet p-jupiter"></div></div>
+                <div class="orbit orbit-6 planet-target" data-target="saturn"><div class="planet p-saturn"></div></div>
+            </div>
         </div>
 
-        <div class="planets-grid">
-            <div class="planet-card reveal">
-                <div class="planet-orb sun-orb"></div>
-                <h3>Sun (Surya)</h3>
-                <p>Soul, Ego & Vitality. Governs your core identity, father, and authority.</p>
+        <!-- Scrollable Content Overlays -->
+        <div class="scroll-steps">
+            
+            <div class="step" data-planet="all">
+                <div class="step-content">
+                    <span class="section-tag">Cosmic Influences</span>
+                    <h2>The Solar System</h2>
+                    <p>Scroll down to journey through the celestial bodies that govern our karma, energy, and destiny. Watch the heavens align as you explore.</p>
+                </div>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.1s;">
-                <div class="planet-orb moon-orb"></div>
-                <h3>Moon (Chandra)</h3>
-                <p>Mind, Emotions & Mother. Controls intuition and inner peace.</p>
+
+            <div class="step" data-planet="sun">
+                <div class="step-content">
+                    <h3 class="planet-title">Sun (Surya)</h3>
+                    <p><strong>Soul, Ego & Vitality.</strong> The blazing center of our existence. It governs your core identity, father figure, authority, and innermost life force. A strong Sun brings leadership and unwavering confidence.</p>
+                </div>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.2s;">
-                <div class="planet-orb mars-orb"></div>
-                <h3>Mars (Mangal)</h3>
-                <p>Energy, Courage & Passion. Drives ambition and physical strength.</p>
+
+            <div class="step" data-planet="mercury">
+                <div class="step-content">
+                    <h3 class="planet-title">Mercury (Budha)</h3>
+                    <p><strong>Intellect, Speech & Logic.</strong> The swift messenger of the cosmos. It influences how you communicate, learn, and conduct business. It governs quick wit, mathematics, and adaptability.</p>
+                </div>
             </div>
-            <div class="planet-card reveal">
-                <div class="planet-orb mercury-orb"></div>
-                <h3>Mercury (Budha)</h3>
-                <p>Intellect, Speech & Logic. Influences communication and business.</p>
+
+            <div class="step" data-planet="venus">
+                <div class="step-content">
+                    <h3 class="planet-title">Venus (Shukra)</h3>
+                    <p><strong>Love, Luxury & Harmony.</strong> The brightest jewel of the sky. Venus dictates romance, artistic inclination, material comforts, and your ability to attract beauty into your life.</p>
+                </div>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.1s;">
-                <div class="planet-orb jupiter-orb"></div>
-                <h3>Jupiter (Guru)</h3>
-                <p>Wisdom, Wealth & Luck. Brings spirituality and supreme knowledge.</p>
+
+            <div class="step" data-planet="earth">
+                <div class="step-content">
+                    <h3 class="planet-title">Moon (Chandra)</h3>
+                    <p><strong>Mind, Emotions & Mother.</strong> Orbiting our home, the Moon controls the tides of your emotions. It represents your subconscious, intuition, inner peace, and maternal connections.</p>
+                </div>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.2s;">
-                <div class="planet-orb venus-orb"></div>
-                <h3>Venus (Shukra)</h3>
-                <p>Love, Luxury & Harmony. Dictates romance and material comforts.</p>
+
+            <div class="step" data-planet="mars">
+                <div class="step-content">
+                    <h3 class="planet-title">Mars (Mangal)</h3>
+                    <p><strong>Energy, Courage & Passion.</strong> The red warrior. Mars drives your ambition, physical strength, and willpower. It is the raw, protective energy required to overcome life's obstacles.</p>
+                </div>
             </div>
-            <div class="planet-card reveal">
-                <div class="planet-orb saturn-orb"></div>
-                <h3>Saturn (Shani)</h3>
-                <p>Karma & Discipline. Teaches life's hardest lessons through perseverance.</p>
+
+            <div class="step" data-planet="jupiter">
+                <div class="step-content">
+                    <h3 class="planet-title">Jupiter (Guru)</h3>
+                    <p><strong>Wisdom, Wealth & Luck.</strong> The grand benefactor. Jupiter brings spirituality, supreme knowledge, and expansion. Its grace provides fortune and philosophical depth to your journey.</p>
+                </div>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.1s;">
-                <div class="planet-orb rahu-orb"></div>
-                <h3>Rahu (North Node)</h3>
-                <p>Ambition & Illusion. Sparks sudden events and worldly hunger.</p>
+
+            <div class="step" data-planet="saturn">
+                <div class="step-content">
+                    <h3 class="planet-title">Saturn (Shani)</h3>
+                    <p><strong>Karma & Discipline.</strong> The ringed teacher. Saturn dispenses life's hardest lessons through delay and perseverance. It forces structure, patience, and karmic justice, ultimately forging diamonds from pressure.</p>
+                </div>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.2s;">
-                <div class="planet-orb ketu-orb"></div>
-                <h3>Ketu (South Node)</h3>
-                <p>Spirituality & Detachment. Guides inward reflection and past-life karma.</p>
-            </div>
+
         </div>
     </section>
 
@@ -243,7 +258,6 @@
         </div>
     </footer>
 
-    <!-- Script -->
     <script src="index.js"></script>
 </body>
 </html>
