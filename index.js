@@ -35,19 +35,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Image Fallback for File Extensions
-    const profileImg = document.querySelector('.profile-photo');
+    // 3. Multi-Attempt Image Loader & Fallback Path Handler
+    const profileImg = document.getElementById('astrologerImg');
     if (profileImg) {
-        profileImg.addEventListener('error', function() {
-            if (this.src.endsWith('.jpg')) {
-                this.src = 'monika.png';
-            } else if (this.src.endsWith('.png')) {
-                this.src = 'Monika.jpg';
+        const potentialSources = [
+            'monika.jpg',
+            'monika.png',
+            'Monika.jpg',
+            'Monika.png',
+            'assets/monika.jpg',
+            'assets/monika.png'
+        ];
+        
+        let attemptIndex = 0;
+
+        profileImg.addEventListener('error', function handleImageError() {
+            attemptIndex++;
+            if (attemptIndex < potentialSources.length) {
+                console.warn(`Image load failed. Trying alternative path: ${potentialSources[attemptIndex]}`);
+                this.src = potentialSources[attemptIndex];
+            } else {
+                console.error('All image paths failed. Generating high-quality SVG fallback placeholder...');
+                // Clean SVG fallback so the layout never breaks
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500"><rect width="400" height="500" fill="%23f7eed8"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Cinzel, serif" font-size="28" fill="%23c59b27">Astrologer Monika</text><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%2364748b">Vedic Guidance</text></svg>';
             }
         });
     }
 
-    // 4. Booking Form Submit Handler
+    // 4. Subtle Mouse Movement Effect on Holy Leaves
+    const photoWrapper = document.querySelector('.about-photo-wrapper');
+    const leaves = document.querySelectorAll('.holy-leaf');
+
+    if (photoWrapper && leaves.length > 0) {
+        photoWrapper.addEventListener('mousemove', (e) => {
+            const rect = photoWrapper.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+            leaves.forEach((leaf, idx) => {
+                const depth = (idx + 1) * 12;
+                leaf.style.transform = `translate(${x * depth}px, ${y * depth}px) rotate(${x * 20}deg)`;
+            });
+        });
+
+        photoWrapper.addEventListener('mouseleave', () => {
+            leaves.forEach((leaf) => {
+                leaf.style.transform = '';
+            });
+        });
+    }
+
+    // 5. Booking Form Handler
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
