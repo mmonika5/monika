@@ -5,517 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astrologer Monika | Vedic Astrology & Guidance</title>
     
-    <!-- Google Fonts & Font Awesome Icons -->
+    <!-- Google Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --bg-main: #ffffff;
-            --bg-alt: #f8fafc;
-            --bg-card: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --accent-gold: #c59b27;
-            --accent-gold-hover: #a17c1b;
-            --accent-navy: #1e1b4b;
-            --border-light: #e2e8f0;
-            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-            --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.08);
-            --font-heading: 'Cinzel', serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, .logo {
-            font-family: var(--font-heading);
-            color: var(--text-dark);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* --- Navigation --- */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-light);
-            z-index: 1000;
-            padding: 1.1rem 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--accent-navy);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
-            color: var(--accent-gold);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.2rem;
-        }
-
-        nav a {
-            font-size: 0.92rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            transition: color 0.2s ease;
-        }
-
-        nav a:hover {
-            color: var(--accent-gold);
-        }
-
-        .btn-gold {
-            background-color: var(--accent-gold);
-            color: #ffffff;
-            padding: 0.65rem 1.4rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.88rem;
-            transition: all 0.25s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-            box-shadow: 0 4px 12px rgba(197, 155, 39, 0.25);
-        }
-
-        .btn-gold:hover {
-            background-color: var(--accent-gold-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(197, 155, 39, 0.35);
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 1.5rem 5rem 1.5rem;
-            background: radial-gradient(circle at 50% 20%, rgba(197, 155, 39, 0.08) 0%, rgba(255, 255, 255, 1) 70%);
-        }
-
-        .hero-content {
-            max-width: 780px;
-        }
-
-        .badge {
-            display: inline-block;
-            background-color: rgba(197, 155, 39, 0.1);
-            color: var(--accent-gold);
-            padding: 0.35rem 1rem;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-        }
-
-        .hero-title {
-            font-size: 3.2rem;
-            line-height: 1.2;
-            margin-bottom: 1.2rem;
-            color: var(--accent-navy);
-        }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 2.2rem;
-            font-weight: 400;
-        }
-
-        /* --- Common Section Layout --- */
-        section {
-            padding: 6rem 8%;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.2rem;
-            color: var(--accent-navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 0.98rem;
-        }
-
-        /* --- About Section (Monika's Profile) --- */
-        .about-container {
-            display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-img-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
-
-        .about-img-wrapper::before {
-            content: '';
-            position: absolute;
-            width: 90%;
-            height: 90%;
-            border: 2px dashed var(--accent-gold);
-            border-radius: 24px;
-            top: -12px;
-            left: -12px;
-            z-index: 0;
-        }
-
-        .about-img {
-            width: 100%;
-            max-width: 360px;
-            height: auto;
-            border-radius: 20px;
-            object-fit: cover;
-            background-color: var(--bg-alt);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            z-index: 1;
-            border: 1px solid var(--border-light);
-        }
-
-        .about-text h3 {
-            font-size: 2rem;
-            color: var(--accent-navy);
-            margin-bottom: 1rem;
-        }
-
-        .about-text p {
-            color: var(--text-muted);
-            margin-bottom: 1.2rem;
-            font-size: 1rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .stat-item h4 {
-            font-size: 1.8rem;
-            color: var(--accent-gold);
-            font-family: var(--font-body);
-            font-weight: 700;
-        }
-
-        .stat-item p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* --- Services Section --- */
-        .services {
-            background-color: var(--bg-alt);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 2.2rem;
-            border-radius: 16px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(197, 155, 39, 0.4);
-        }
-
-        .service-icon {
-            width: 54px;
-            height: 54px;
-            background-color: rgba(197, 155, 39, 0.1);
-            color: var(--accent-gold);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.6rem;
-            color: var(--accent-navy);
-        }
-
-        .service-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-        }
-
-        /* --- Testimonials --- */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background-color: var(--bg-card);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .stars {
-            color: var(--accent-gold);
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.2rem;
-            font-style: italic;
-        }
-
-        .client-name {
-            font-weight: 600;
-            color: var(--accent-navy);
-            font-size: 0.9rem;
-        }
-
-        /* --- Booking Form --- */
-        .booking {
-            background-color: var(--bg-alt);
-        }
-
-        .booking-container {
-            max-width: 640px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            padding: 2.8rem;
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background-color: #ffffff;
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            color: var(--text-dark);
-            font-family: inherit;
-            font-size: 0.92rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-group input:focus, 
-        .form-group select:focus, 
-        .form-group textarea:focus {
-            border-color: var(--accent-gold);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background-color: var(--accent-navy);
-            color: #ffffff;
-            padding: 3.5rem 8% 2rem 8%;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .footer-links a {
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-gold);
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-icons a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.08);
-            color: var(--accent-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .social-icons a:hover {
-            background-color: var(--accent-gold);
-            color: #ffffff;
-        }
-
-        .copyright {
-            font-size: 0.82rem;
-            color: #94a3b8;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 1.5rem;
-        }
-
-        /* Responsive Layout */
-        @media (max-width: 768px) {
-            .hero-title { font-size: 2.2rem; }
-            .about-container { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
-            .about-img-wrapper::before { display: none; }
-            nav ul { display: none; }
-            .form-row { grid-template-columns: 1fr; }
-        }
-    </style>
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- Header Navigation -->
     <header>
-        <div class="logo">
-            <i class="fa-solid fa-sun"></i> Astrologer Monika
-        </div>
-        <nav>
+        <a href="#home" class="logo">
+            <i class="fa-solid fa-sun"></i>
+            <span>Astrologer Monika</span>
+        </a>
+        <nav id="nav-menu">
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#booking" class="nav-link">Contact</a></li>
             </ul>
         </nav>
-        <a href="#contact" class="btn-gold">Book Consultation</a>
+        <div class="nav-actions">
+            <a href="#booking" class="btn-gold">Book Reading</a>
+            <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <span class="badge">Vedic Astrology & Guidance</span>
-            <h1 class="hero-title">Discover Clarity & Direction For Your Life</h1>
-            <p class="hero-subtitle">Personalized horoscope readings, relationship guidance, and proven spiritual remedies tailored for your growth.</p>
-            <a href="#contact" class="btn-gold">Get Your Reading</a>
+            <span class="badge"><i class="fa-solid fa-star-of-david"></i> Authentic Vedic Guidance</span>
+            <h1 class="hero-title">Discover Harmony & Destiny Through Celestial Wisdom</h1>
+            <p class="hero-subtitle">Empowering life decisions through personalized Kundli readings, relationship compatibility, and practical spiritual remedies.</p>
+            <div class="hero-cta">
+                <a href="#booking" class="btn-gold">Get Your Reading</a>
+                <a href="#services" class="btn-outline">Explore Services</a>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" class="about">
         <div class="about-container">
-            <div class="about-img-wrapper">
-                <img src="monika.png" alt="Astrologer Monika" class="about-img">
+            <!-- Arch Portal Frame for Photo -->
+            <div class="about-photo-wrapper">
+                <div class="arch-frame">
+                    <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo">
+                </div>
+                <div class="experience-badge">
+                    <span class="years">12+</span>
+                    <span class="lbl">Years Experience</span>
+                </div>
             </div>
+
+            <!-- About Text -->
             <div class="about-text">
-                <h3>Meet Astrologer Monika</h3>
-                <p>With over 12 years of experience in Vedic Astrology, Palmistry, and Numerology, Monika brings deep intuitive clarity and practical wisdom to every consultation.</p>
-                <p>Her approach is modern, empathetic, and solution-focused—helping individuals solve real-world challenges around career decisions, love life, financial growth, and emotional harmony.</p>
+                <span class="section-tag">About Astrologer</span>
+                <h2>Meet Astrologer Monika</h2>
+                <p>Astrologer Monika is an experienced Vedic Astrologer, Numerologist, and Spiritual Consultant dedicated to bringing clarity and peace into people's lives.</p>
+                <p>Combining time-tested planetary science with empathetic, modern consultations, Monika helps individuals navigate life's critical moments—from career transitions and financial growth to marriage matching and family wellbeing.</p>
                 
                 <div class="stats-grid">
-                    <div class="stat-item">
-                        <h4>12+</h4>
+                    <div class="stat-card">
+                        <h3 class="counter" data-target="12">12+</h3>
                         <p>Years Experience</p>
                     </div>
-                    <div class="stat-item">
-                        <h4>5k+</h4>
+                    <div class="stat-card">
+                        <h3 class="counter" data-target="5000">5,000+</h3>
                         <p>Clients Guided</p>
                     </div>
-                    <div class="stat-item">
-                        <h4>98%</h4>
+                    <div class="stat-card">
+                        <h3 class="counter" data-target="98">98%</h3>
                         <p>Satisfaction</p>
                     </div>
                 </div>
@@ -526,150 +94,180 @@
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="section-header">
-            <h2>Our Guidance Services</h2>
-            <p>Thoughtful analysis tailored to your personal birth chart</p>
+            <span class="section-tag">Consultation Offerings</span>
+            <h2>Services Tailored For You</h2>
+            <p>Practical astrological insights designed to bring clarity and solutions to your journey.</p>
         </div>
 
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon"><i class="fa-solid fa-compass"></i></div>
                 <h3>Kundli & Birth Chart</h3>
-                <p>Gain deep clarity into your life purpose, strengths, planetary cycles, and upcoming opportunities.</p>
+                <p>Comprehensive analysis of planetary configurations at birth to uncover career strengths, life purpose, and future timing.</p>
             </div>
 
             <div class="service-card">
                 <div class="service-icon"><i class="fa-solid fa-heart"></i></div>
-                <h3>Relationship Matching</h3>
-                <p>Evaluate relationship compatibility, resolve conflicts, and foster lasting partnership harmony.</p>
+                <h3>Matchmaking & Relationships</h3>
+                <p>Deep compatibility assessments for marriage, conflict resolution, and understanding partner relationship dynamics.</p>
             </div>
 
             <div class="service-card">
                 <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>Career & Wealth</h3>
-                <p>Discover the right timing for career switches, business ventures, financial decisions, and investments.</p>
+                <h3>Career & Financial Growth</h3>
+                <p>Identifies strategic timing for job shifts, business expansions, investments, and overcoming financial roadblocks.</p>
             </div>
 
             <div class="service-card">
                 <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
-                <h3>Remedies & Gemstones</h3>
-                <p>Receive actionable planetary remedies, practical habits, and authentic gemstone advice.</p>
+                <h3>Gemstone & Remedies</h3>
+                <p>Effective, personalized remedies, mantra chanting guidance, and authentic gemstone recommendations.</p>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="reviews">
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews">
         <div class="section-header">
-            <h2>Client Feedback</h2>
-            <p>Read what others experienced during their personal readings</p>
+            <span class="section-tag">Client Feedback</span>
+            <h2>Words From Our Clients</h2>
+            <p>Real stories from people who found guidance and answers.</p>
         </div>
 
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
+        <div class="reviews-grid">
+            <div class="review-card">
                 <div class="stars">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <p>"Monika’s reading was incredibly precise. Her guidance on my business timing saved me from a major financial mistake."</p>
-                <div class="client-name">Priya S. — Delhi</div>
+                <p>"Monika's Kundli insights gave me immense confidence before switching my job. Her timing prediction was spot on!"</p>
+                <div class="client-info">
+                    <strong>Priya Sharma</strong>
+                    <span>New Delhi</span>
+                </div>
             </div>
 
-            <div class="testimonial-card">
+            <div class="review-card">
                 <div class="stars">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <p>"Very patient, polite, and reassuring. Her remedies were simple and effective. I feel much more confident now."</p>
-                <div class="client-name">Rohan M. — Mumbai</div>
+                <p>"Very polite and calm reading session. Her suggested remedies were simple and brought peace into my home."</p>
+                <div class="client-info">
+                    <strong>Rajesh Malhotra</strong>
+                    <span>Mumbai</span>
+                </div>
             </div>
 
-            <div class="testimonial-card">
+            <div class="review-card">
                 <div class="stars">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <p>"The best astrology consultation I have had. Clean insights, zero fear-mongering, and very practical solutions."</p>
-                <div class="client-name">Ananya K. — Bangalore</div>
+                <p>"The best consultation experience. No fear-mongering—just honest advice and logical remedies."</p>
+                <div class="client-info">
+                    <strong>Ananya Kapoor</strong>
+                    <span>Bengaluru</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Booking Form Section -->
-    <section id="contact" class="booking">
+    <!-- Booking Section -->
+    <section id="booking" class="booking">
         <div class="section-header">
-            <h2>Book Your Reading</h2>
-            <p>Fill in your birth information to reserve a personal session</p>
+            <span class="section-tag">Schedule Consultation</span>
+            <h2>Book Your Session</h2>
+            <p>Provide your birth details below to receive accurate astrological insights.</p>
         </div>
 
-        <div class="booking-container">
-            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Booking request sent successfully!');">
+        <div class="booking-card">
+            <form id="booking-form">
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" required placeholder="Enter your full name">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" required placeholder="your@email.com">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" required placeholder="name@example.com">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone / WhatsApp</label>
+                        <label for="phone">Phone / WhatsApp *</label>
                         <input type="tel" id="phone" required placeholder="+91 98765 43210">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="dob">Date of Birth</label>
+                        <label for="dob">Date of Birth *</label>
                         <input type="date" id="dob" required>
                     </div>
                     <div class="form-group">
-                        <label for="tob">Time of Birth</label>
+                        <label for="tob">Time of Birth *</label>
                         <input type="time" id="tob" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="pob">Place of Birth (City, Country)</label>
+                    <label for="pob">Place of Birth (City, State, Country) *</label>
                     <input type="text" id="pob" required placeholder="e.g. Delhi, India">
                 </div>
 
                 <div class="form-group">
-                    <label for="service">Select Service</label>
-                    <select id="service" required>
+                    <label for="serviceSelect">Service Required *</label>
+                    <select id="serviceSelect" required>
                         <option value="">-- Choose Option --</option>
-                        <option value="kundli">Full Kundli Analysis</option>
-                        <option value="matchmaking">Relationship Compatibility</option>
-                        <option value="career">Career & Financial Reading</option>
-                        <option value="remedies">Gemstone & Remedies Consultation</option>
+                        <option value="Kundli Analysis">Full Kundli Analysis</option>
+                        <option value="Matchmaking">Relationship & Matchmaking</option>
+                        <option value="Career Guidance">Career & Financial Consultation</option>
+                        <option value="Remedies">Gemstones & Spiritual Remedies</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Your Questions (Optional)</label>
-                    <textarea id="message" rows="3" placeholder="Briefly describe what you'd like guidance on..."></textarea>
+                    <label for="notes">Specific Questions (Optional)</label>
+                    <textarea id="notes" rows="3" placeholder="Briefly describe what area you need clarity on..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-gold" style="width: 100%; border-radius: 10px; padding: 0.9rem;">Confirm Appointment</button>
+                <button type="submit" class="btn-gold submit-btn">Confirm Consultation</button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-logo">Astrologer Monika</div>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#contact">Contact</a>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="fa-solid fa-sun"></i>
+                    <span>Astrologer Monika</span>
+                </div>
+                <p>Authentic Vedic astrology consultation for career, health, relationships, and life guidance.</p>
+            </div>
+            <div class="footer-nav">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#booking">Book Consultation</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
         </div>
-        <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Astrologer Monika. All Rights Reserved.</p>
         </div>
-        <p class="copyright">&copy; 2026 Astrologer Monika. All Rights Reserved.</p>
     </footer>
 
+    <!-- External Script -->
+    <script src="index.js"></script>
 </body>
 </html>
