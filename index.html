@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astrologer Monika | Celestial Wisdom & Vedic Astrology</title>
+    <title>Astrologer Monika | Celestial Wisdom</title>
     
-    <!-- Google Fonts & Font Awesome Icons -->
+    <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Stylesheet -->
@@ -16,13 +16,13 @@
 </head>
 <body>
 
-    <!-- Dynamic Starry Background -->
-    <div id="star-container"></div>
+    <!-- Soft Ambient Dust Particles -->
+    <div id="dust-container"></div>
 
     <!-- Header Navigation -->
     <header id="header">
         <a href="#home" class="logo">
-            <i class="fa-solid fa-sun fa-spin-pulse"></i>
+            <i class="fa-solid fa-sun icon-spin"></i>
             <span>Astrologer Monika</span>
         </a>
         <nav id="nav-menu">
@@ -35,25 +35,33 @@
             </ul>
         </nav>
         <div class="nav-actions">
-            <a href="#booking" class="btn-gold glow-effect">Book Reading</a>
+            <a href="#booking" class="btn-gold">Book Reading</a>
             <button class="mobile-toggle" id="menu-toggle">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with CSS Solar System -->
     <section id="home" class="hero relative-section">
-        <!-- Spinning Zodiac Mandala -->
-        <div class="zodiac-mandala parallax" data-speed="0.2"></div>
+        
+        <!-- Elegant CSS Astrolabe / Solar System -->
+        <div class="solar-system parallax" data-speed="0.2">
+            <div class="sun-center"></div>
+            <div class="orbit orbit-1"><div class="planet p-mercury"></div></div>
+            <div class="orbit orbit-2"><div class="planet p-venus"></div></div>
+            <div class="orbit orbit-3"><div class="planet p-earth"></div></div>
+            <div class="orbit orbit-4"><div class="planet p-mars"></div></div>
+            <div class="orbit orbit-5"><div class="planet p-jupiter"></div></div>
+        </div>
         
         <div class="hero-content reveal">
-            <span class="badge"><i class="fa-solid fa-moon"></i> Authentic Vedic Guidance</span>
-            <h1 class="hero-title">Unlock the Secrets of the Cosmos</h1>
-            <p class="hero-subtitle">Align your life with celestial energies through profound Kundli readings, planetary remedies, and spiritual awakening.</p>
+            <span class="badge"><i class="fa-solid fa-om"></i> Divine Vedic Guidance</span>
+            <h1 class="hero-title">Navigate Your Life's Constellations</h1>
+            <p class="hero-subtitle">Discover clarity, purpose, and peace through the timeless wisdom of Vedic Astrology, tailored for the modern soul.</p>
             <div class="hero-cta">
                 <a href="#booking" class="btn-gold">Begin Your Journey</a>
-                <a href="#planets" class="btn-outline">Explore The Planets</a>
+                <a href="#planets" class="btn-outline">Explore Navagraha</a>
             </div>
         </div>
     </section>
@@ -62,21 +70,13 @@
     <section id="about" class="about relative-section">
         <div class="about-container reveal">
             
-            <!-- Sacred Holy Photo Frame -->
+            <!-- Seamless Photo Frame -->
             <div class="about-photo-wrapper parallax" data-speed="-0.1">
-                <!-- Cosmic Aura -->
-                <div class="holy-aura-ring"></div>
                 <div class="holy-aura-glow"></div>
-
-                <!-- Main Portrait Card (Fades into background) -->
                 <div class="photo-card">
-                    <!-- The mask-image in CSS will fade out the harsh background of monika.jpg -->
+                    <!-- The photo fade effect is now permanent (no hover removal) -->
                     <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo blend-image" id="astrologerImg">
                 </div>
-
-                <!-- Floating Elements -->
-                <i class="fa-solid fa-star holy-star s1 parallax" data-speed="0.4"></i>
-                <i class="fa-solid fa-star-and-crescent holy-star s2 parallax" data-speed="0.6"></i>
                 
                 <div class="experience-badge float-anim">
                     <span class="years">12+</span>
@@ -87,9 +87,9 @@
             <!-- About Text -->
             <div class="about-text">
                 <span class="section-tag">The Seer</span>
-                <h2>Guided by the Stars, Grounded in Wisdom</h2>
-                <p>Astrologer Monika connects the ancient science of Vedic Astrology with modern life challenges, illuminating the paths of those lost in uncertainty.</p>
-                <p>Her profound intuitive abilities and deep understanding of planetary transits allow her to offer life-changing remedies for wealth, marriage, and inner peace.</p>
+                <h2>Illuminating The Path Forward</h2>
+                <p>Astrologer Monika seamlessly bridges ancient celestial science with contemporary challenges, providing a grounding light for those navigating uncertainty.</p>
+                <p>With precise Kundli analysis and intuitive foresight, she prescribes practical, powerful remedies to harmonize your career, relationships, and spiritual growth.</p>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -114,54 +114,54 @@
         <div class="section-header reveal">
             <span class="section-tag">Cosmic Influences</span>
             <h2>The Nine Planets (Navagraha)</h2>
-            <p>Understand the divine bodies shaping your destiny, karma, and soul's journey.</p>
+            <p>The pure celestial bodies that govern our karma and earthly experience.</p>
         </div>
 
         <div class="planets-grid">
-            <div class="planet-card reveal" style="transition-delay: 0.1s;">
+            <div class="planet-card reveal">
                 <div class="planet-orb sun-orb"></div>
                 <h3>Sun (Surya)</h3>
-                <p>Soul, Ego, Vitality & Career. Governs your core identity, father, and authority.</p>
+                <p>Soul, Ego & Vitality. Governs your core identity, father, and authority.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.2s;">
+            <div class="planet-card reveal" style="transition-delay: 0.1s;">
                 <div class="planet-orb moon-orb"></div>
                 <h3>Moon (Chandra)</h3>
-                <p>Mind, Emotions & Mother. Controls intuition, peace of mind, and inner feelings.</p>
+                <p>Mind, Emotions & Mother. Controls intuition and inner peace.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.3s;">
+            <div class="planet-card reveal" style="transition-delay: 0.2s;">
                 <div class="planet-orb mars-orb"></div>
                 <h3>Mars (Mangal)</h3>
-                <p>Energy, Courage & Property. Drives passion, ambition, and sibling relationships.</p>
+                <p>Energy, Courage & Passion. Drives ambition and physical strength.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.4s;">
+            <div class="planet-card reveal">
                 <div class="planet-orb mercury-orb"></div>
                 <h3>Mercury (Budha)</h3>
-                <p>Intellect, Speech & Business. Influences logic, communication, and learning.</p>
+                <p>Intellect, Speech & Logic. Influences communication and business.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.5s;">
+            <div class="planet-card reveal" style="transition-delay: 0.1s;">
                 <div class="planet-orb jupiter-orb"></div>
                 <h3>Jupiter (Guru)</h3>
-                <p>Wisdom, Wealth & Expansion. Brings luck, spirituality, and supreme knowledge.</p>
+                <p>Wisdom, Wealth & Luck. Brings spirituality and supreme knowledge.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.6s;">
+            <div class="planet-card reveal" style="transition-delay: 0.2s;">
                 <div class="planet-orb venus-orb"></div>
                 <h3>Venus (Shukra)</h3>
-                <p>Love, Luxury & Harmony. Dictates romance, aesthetics, and material comforts.</p>
+                <p>Love, Luxury & Harmony. Dictates romance and material comforts.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.7s;">
+            <div class="planet-card reveal">
                 <div class="planet-orb saturn-orb"></div>
                 <h3>Saturn (Shani)</h3>
-                <p>Karma, Discipline & Justice. Teaches life's hardest lessons through perseverance.</p>
+                <p>Karma & Discipline. Teaches life's hardest lessons through perseverance.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.8s;">
+            <div class="planet-card reveal" style="transition-delay: 0.1s;">
                 <div class="planet-orb rahu-orb"></div>
                 <h3>Rahu (North Node)</h3>
-                <p>Ambition, Illusion & Desires. Sparks obsessive drive, sudden events, and worldly hunger.</p>
+                <p>Ambition & Illusion. Sparks sudden events and worldly hunger.</p>
             </div>
-            <div class="planet-card reveal" style="transition-delay: 0.9s;">
+            <div class="planet-card reveal" style="transition-delay: 0.2s;">
                 <div class="planet-orb ketu-orb"></div>
                 <h3>Ketu (South Node)</h3>
-                <p>Spirituality, Detachment & Moksha. Guides inward reflection and past-life karma.</p>
+                <p>Spirituality & Detachment. Guides inward reflection and past-life karma.</p>
             </div>
         </div>
     </section>
@@ -174,19 +174,19 @@
         </div>
         <div class="services-grid">
             <div class="service-card reveal">
-                <i class="fa-solid fa-scroll service-icon"></i>
+                <div class="icon-wrap"><i class="fa-solid fa-scroll"></i></div>
                 <h3>Kundli & Birth Chart</h3>
-                <p>Deep dive into your D1 and divisional charts to decode your life's ultimate purpose and timing.</p>
+                <p>Deep dive into your D1 and divisional charts to decode your life's ultimate purpose.</p>
             </div>
-            <div class="service-card reveal">
-                <i class="fa-solid fa-infinity service-icon"></i>
+            <div class="service-card reveal" style="transition-delay: 0.1s;">
+                <div class="icon-wrap"><i class="fa-solid fa-infinity"></i></div>
                 <h3>Synastry & Matchmaking</h3>
                 <p>Gun Milan and compatibility checks to ensure harmonic and enduring partnerships.</p>
             </div>
-            <div class="service-card reveal">
-                <i class="fa-solid fa-gem service-icon"></i>
+            <div class="service-card reveal" style="transition-delay: 0.2s;">
+                <div class="icon-wrap"><i class="fa-solid fa-gem"></i></div>
                 <h3>Gemstones & Remedies</h3>
-                <p>Powerful Vedic mantras, gemstone prescriptions, and simple remedies to pacify negative doshas.</p>
+                <p>Powerful mantras and gemstone prescriptions to pacify negative planetary doshas.</p>
             </div>
         </div>
     </section>
@@ -194,7 +194,7 @@
     <!-- Booking Section -->
     <section id="booking" class="booking relative-section">
         <div class="booking-card reveal">
-            <div class="section-header">
+            <div class="section-header" style="margin-bottom: 2rem;">
                 <h2>Connect With The Cosmos</h2>
                 <p>Submit your birth details for a profound reading.</p>
             </div>
@@ -223,7 +223,7 @@
                     <label>City & Country of Birth</label>
                     <input type="text" id="pob" required placeholder="e.g. New Delhi, India">
                 </div>
-                <button type="submit" class="btn-gold submit-btn glow-effect">Unlock My Destiny</button>
+                <button type="submit" class="btn-gold submit-btn">Unlock My Destiny</button>
             </form>
         </div>
     </section>
