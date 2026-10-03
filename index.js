@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mobile Menu Toggle
+    // 1. Mobile Navigation Toggle
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
 
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Smooth Navigation Link Active State
+    // 2. Active Link Highlight on Scroll
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section');
 
@@ -35,9 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Booking Form Submission Handling
-    const bookingForm = document.getElementById('booking-form');
+    // 3. Image Fallback for File Extensions
+    const profileImg = document.querySelector('.profile-photo');
+    if (profileImg) {
+        profileImg.addEventListener('error', function() {
+            if (this.src.endsWith('.jpg')) {
+                this.src = 'monika.png';
+            } else if (this.src.endsWith('.png')) {
+                this.src = 'Monika.jpg';
+            }
+        });
+    }
 
+    // 4. Booking Form Submit Handler
+    const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -46,11 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const service = document.getElementById('serviceSelect').value;
 
             if (!fullName || !service) {
-                alert('Please fill in all required fields.');
+                alert('Please fill out all required fields.');
                 return;
             }
 
-            alert(`Thank you, ${fullName}! Your request for "${service}" consultation has been received. Monika's team will contact you shortly.`);
+            alert(`Thank you, ${fullName}! Your consultation request for "${service}" has been successfully submitted.`);
             bookingForm.reset();
         });
     }
