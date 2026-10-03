@@ -41,7 +41,7 @@ a {
     text-decoration: none;
 }
 
-/* --- Header / Navigation --- */
+/* --- Header & Navigation --- */
 header {
     position: fixed;
     top: 0;
@@ -103,7 +103,7 @@ nav ul {
     cursor: pointer;
 }
 
-/* Buttons */
+/* --- Buttons --- */
 .btn-gold {
     background-color: var(--accent-gold);
     color: #ffffff;
@@ -215,7 +215,7 @@ section {
     font-size: 0.98rem;
 }
 
-/* --- About Section & Photo Fitting --- */
+/* --- About Section & Photo Formatting --- */
 .about {
     background-color: var(--bg-main);
 }
@@ -229,41 +229,53 @@ section {
 
 .about-photo-wrapper {
     position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-/* Arch cutout frame for monika.jpg */
-.arch-frame {
     width: 100%;
     max-width: 350px;
-    height: 440px;
-    border-radius: 180px 180px 24px 24px;
-    border: 2px solid var(--accent-gold);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    background: linear-gradient(180deg, #fef8eb 0%, #ffffff 100%);
+    margin: 0 auto;
+}
+
+.photo-card {
     position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 200px 200px 24px 24px;
+    border: 3px solid var(--accent-gold);
+    overflow: hidden;
+    background: #fef8eb;
+    box-shadow: var(--shadow-lg);
 }
 
 .profile-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 15%; /* Fits face nicely */
+    object-position: center 10%;
     display: block;
+    transition: transform 0.4s ease;
+}
+
+.photo-card:hover .profile-photo {
+    transform: scale(1.03);
+}
+
+.photo-overlay-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.25) 0%, transparent 40%);
+    pointer-events: none;
 }
 
 .experience-badge {
     position: absolute;
     bottom: -15px;
-    right: 20px;
+    right: -10px;
     background-color: #ffffff;
     border: 1px solid var(--border-color);
-    padding: 0.75rem 1.2rem;
+    padding: 0.75rem 1.25rem;
     border-radius: 16px;
     box-shadow: var(--shadow-md);
     text-align: center;
+    z-index: 2;
 }
 
 .experience-badge .years {
@@ -533,7 +545,7 @@ footer {
     color: #94a3b8;
 }
 
-/* --- Mobile Responsive --- */
+/* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     .hero-title { font-size: 2.1rem; }
     .about-container { grid-template-columns: 1fr; text-align: center; }
