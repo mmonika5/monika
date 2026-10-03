@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astrologer Monika | Vedic Astrology & Guidance</title>
+    <title>Astrologer Monika | Celestial Wisdom & Vedic Astrology</title>
     
     <!-- Google Fonts & Font Awesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Stylesheet -->
@@ -16,274 +16,231 @@
 </head>
 <body>
 
+    <!-- Dynamic Starry Background -->
+    <div id="star-container"></div>
+
     <!-- Header Navigation -->
-    <header>
+    <header id="header">
         <a href="#home" class="logo">
-            <i class="fa-solid fa-sun"></i>
+            <i class="fa-solid fa-sun fa-spin-pulse"></i>
             <span>Astrologer Monika</span>
         </a>
         <nav id="nav-menu">
             <ul>
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#planets" class="nav-link">Navagraha</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
                 <li><a href="#booking" class="nav-link">Contact</a></li>
             </ul>
         </nav>
         <div class="nav-actions">
-            <a href="#booking" class="btn-gold">Book Reading</a>
-            <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+            <a href="#booking" class="btn-gold glow-effect">Book Reading</a>
+            <button class="mobile-toggle" id="menu-toggle">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <span class="badge"><i class="fa-solid fa-star-of-david"></i> Authentic Vedic Guidance</span>
-            <h1 class="hero-title">Discover Harmony & Destiny Through Celestial Wisdom</h1>
-            <p class="hero-subtitle">Empowering life decisions through personalized Kundli readings, relationship compatibility, and practical spiritual remedies.</p>
+    <section id="home" class="hero relative-section">
+        <!-- Spinning Zodiac Mandala -->
+        <div class="zodiac-mandala parallax" data-speed="0.2"></div>
+        
+        <div class="hero-content reveal">
+            <span class="badge"><i class="fa-solid fa-moon"></i> Authentic Vedic Guidance</span>
+            <h1 class="hero-title">Unlock the Secrets of the Cosmos</h1>
+            <p class="hero-subtitle">Align your life with celestial energies through profound Kundli readings, planetary remedies, and spiritual awakening.</p>
             <div class="hero-cta">
-                <a href="#booking" class="btn-gold">Get Your Reading</a>
-                <a href="#services" class="btn-outline">Explore Services</a>
+                <a href="#booking" class="btn-gold">Begin Your Journey</a>
+                <a href="#planets" class="btn-outline">Explore The Planets</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="about-container">
+    <!-- About Section with Blended Photo -->
+    <section id="about" class="about relative-section">
+        <div class="about-container reveal">
             
-            <!-- Sacred Holy Photo Frame with Floating Leaves & Clouds -->
-            <div class="about-photo-wrapper">
-                <!-- Radiant Sacred Aura Halo -->
+            <!-- Sacred Holy Photo Frame -->
+            <div class="about-photo-wrapper parallax" data-speed="-0.1">
+                <!-- Cosmic Aura -->
                 <div class="holy-aura-ring"></div>
                 <div class="holy-aura-glow"></div>
 
-                <!-- Floating Sacred Leaves & Lotus Elements -->
-                <div class="holy-leaf leaf-top-left"><i class="fa-solid fa-leaf"></i></div>
-                <div class="holy-leaf leaf-top-right"><i class="fa-solid fa-spa"></i></div>
-                <div class="holy-leaf leaf-bottom-left"><i class="fa-solid fa-spa"></i></div>
-                <div class="holy-leaf leaf-bottom-right"><i class="fa-solid fa-leaf"></i></div>
-
-                <!-- Floating Divine Clouds -->
-                <div class="holy-cloud cloud-left"><i class="fa-solid fa-cloud"></i></div>
-                <div class="holy-cloud cloud-right"><i class="fa-solid fa-cloud"></i></div>
-                <div class="holy-cloud cloud-bottom"><i class="fa-solid fa-cloud"></i></div>
-
-                <!-- Main Portrait Card (Shows Full Uncropped Image) -->
+                <!-- Main Portrait Card (Fades into background) -->
                 <div class="photo-card">
-                    <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo" id="astrologerImg">
-                    <div class="photo-overlay-glow"></div>
+                    <!-- The mask-image in CSS will fade out the harsh background of monika.jpg -->
+                    <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo blend-image" id="astrologerImg">
                 </div>
 
-                <!-- Experience Badge -->
-                <div class="experience-badge">
+                <!-- Floating Elements -->
+                <i class="fa-solid fa-star holy-star s1 parallax" data-speed="0.4"></i>
+                <i class="fa-solid fa-star-and-crescent holy-star s2 parallax" data-speed="0.6"></i>
+                
+                <div class="experience-badge float-anim">
                     <span class="years">12+</span>
-                    <span class="lbl">Years Experience</span>
+                    <span class="lbl">Years Mastery</span>
                 </div>
             </div>
 
             <!-- About Text -->
             <div class="about-text">
-                <span class="section-tag">About Astrologer</span>
-                <h2>Meet Astrologer Monika</h2>
-                <p>Astrologer Monika is an experienced Vedic Astrologer, Numerologist, and Spiritual Consultant dedicated to bringing clarity, peace, and divine direction into people's lives.</p>
-                <p>Combining time-tested planetary science with empathetic, modern consultations, Monika helps individuals navigate life's critical moments—from career transitions and financial growth to marriage matching and family wellbeing.</p>
+                <span class="section-tag">The Seer</span>
+                <h2>Guided by the Stars, Grounded in Wisdom</h2>
+                <p>Astrologer Monika connects the ancient science of Vedic Astrology with modern life challenges, illuminating the paths of those lost in uncertainty.</p>
+                <p>Her profound intuitive abilities and deep understanding of planetary transits allow her to offer life-changing remedies for wealth, marriage, and inner peace.</p>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h3>12+</h3>
-                        <p>Years Experience</p>
+                        <p>Years</p>
                     </div>
                     <div class="stat-card">
-                        <h3>5,000+</h3>
-                        <p>Clients Guided</p>
+                        <h3>5k+</h3>
+                        <p>Readings</p>
                     </div>
                     <div class="stat-card">
-                        <h3>98%</h3>
-                        <p>Satisfaction</p>
+                        <h3>100%</h3>
+                        <p>Confidential</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The 9 Planets Section (Navagraha) -->
+    <section id="planets" class="planets relative-section">
+        <div class="section-header reveal">
+            <span class="section-tag">Cosmic Influences</span>
+            <h2>The Nine Planets (Navagraha)</h2>
+            <p>Understand the divine bodies shaping your destiny, karma, and soul's journey.</p>
+        </div>
+
+        <div class="planets-grid">
+            <div class="planet-card reveal" style="transition-delay: 0.1s;">
+                <div class="planet-orb sun-orb"></div>
+                <h3>Sun (Surya)</h3>
+                <p>Soul, Ego, Vitality & Career. Governs your core identity, father, and authority.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.2s;">
+                <div class="planet-orb moon-orb"></div>
+                <h3>Moon (Chandra)</h3>
+                <p>Mind, Emotions & Mother. Controls intuition, peace of mind, and inner feelings.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.3s;">
+                <div class="planet-orb mars-orb"></div>
+                <h3>Mars (Mangal)</h3>
+                <p>Energy, Courage & Property. Drives passion, ambition, and sibling relationships.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.4s;">
+                <div class="planet-orb mercury-orb"></div>
+                <h3>Mercury (Budha)</h3>
+                <p>Intellect, Speech & Business. Influences logic, communication, and learning.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.5s;">
+                <div class="planet-orb jupiter-orb"></div>
+                <h3>Jupiter (Guru)</h3>
+                <p>Wisdom, Wealth & Expansion. Brings luck, spirituality, and supreme knowledge.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.6s;">
+                <div class="planet-orb venus-orb"></div>
+                <h3>Venus (Shukra)</h3>
+                <p>Love, Luxury & Harmony. Dictates romance, aesthetics, and material comforts.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.7s;">
+                <div class="planet-orb saturn-orb"></div>
+                <h3>Saturn (Shani)</h3>
+                <p>Karma, Discipline & Justice. Teaches life's hardest lessons through perseverance.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.8s;">
+                <div class="planet-orb rahu-orb"></div>
+                <h3>Rahu (North Node)</h3>
+                <p>Ambition, Illusion & Desires. Sparks obsessive drive, sudden events, and worldly hunger.</p>
+            </div>
+            <div class="planet-card reveal" style="transition-delay: 0.9s;">
+                <div class="planet-orb ketu-orb"></div>
+                <h3>Ketu (South Node)</h3>
+                <p>Spirituality, Detachment & Moksha. Guides inward reflection and past-life karma.</p>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="section-header">
-            <span class="section-tag">Consultation Offerings</span>
-            <h2>Services Tailored For You</h2>
-            <p>Practical astrological insights designed to bring clarity and solutions to your journey.</p>
+    <section id="services" class="services relative-section">
+        <div class="section-header reveal">
+            <span class="section-tag">Consultations</span>
+            <h2>Astrological Offerings</h2>
         </div>
-
         <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-compass"></i></div>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-scroll service-icon"></i>
                 <h3>Kundli & Birth Chart</h3>
-                <p>Comprehensive analysis of planetary configurations at birth to uncover career strengths, life purpose, and future timing.</p>
+                <p>Deep dive into your D1 and divisional charts to decode your life's ultimate purpose and timing.</p>
             </div>
-
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-heart"></i></div>
-                <h3>Matchmaking & Relationships</h3>
-                <p>Deep compatibility assessments for marriage, conflict resolution, and understanding partner relationship dynamics.</p>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-infinity service-icon"></i>
+                <h3>Synastry & Matchmaking</h3>
+                <p>Gun Milan and compatibility checks to ensure harmonic and enduring partnerships.</p>
             </div>
-
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>Career & Financial Growth</h3>
-                <p>Identifies strategic timing for job shifts, business expansions, investments, and overcoming financial roadblocks.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
-                <h3>Gemstone & Remedies</h3>
-                <p>Effective, personalized remedies, mantra chanting guidance, and authentic gemstone recommendations.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section id="reviews" class="reviews">
-        <div class="section-header">
-            <span class="section-tag">Client Feedback</span>
-            <h2>Words From Our Clients</h2>
-            <p>Real stories from people who found guidance and answers.</p>
-        </div>
-
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p>"Monika's Kundli insights gave me immense confidence before switching my job. Her timing prediction was spot on!"</p>
-                <div class="client-info">
-                    <strong>Priya Sharma</strong>
-                    <span>New Delhi</span>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p>"Very polite and calm reading session. Her suggested remedies were simple and brought peace into my home."</p>
-                <div class="client-info">
-                    <strong>Rajesh Malhotra</strong>
-                    <span>Mumbai</span>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p>"The best consultation experience. No fear-mongering—just honest advice and logical remedies."</p>
-                <div class="client-info">
-                    <strong>Ananya Kapoor</strong>
-                    <span>Bengaluru</span>
-                </div>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-gem service-icon"></i>
+                <h3>Gemstones & Remedies</h3>
+                <p>Powerful Vedic mantras, gemstone prescriptions, and simple remedies to pacify negative doshas.</p>
             </div>
         </div>
     </section>
 
     <!-- Booking Section -->
-    <section id="booking" class="booking">
-        <div class="section-header">
-            <span class="section-tag">Schedule Consultation</span>
-            <h2>Book Your Session</h2>
-            <p>Provide your birth details below to receive accurate astrological insights.</p>
-        </div>
-
-        <div class="booking-card">
+    <section id="booking" class="booking relative-section">
+        <div class="booking-card reveal">
+            <div class="section-header">
+                <h2>Connect With The Cosmos</h2>
+                <p>Submit your birth details for a profound reading.</p>
+            </div>
             <form id="booking-form">
-                <div class="form-group">
-                    <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" required placeholder="Enter your full name">
-                </div>
-
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" required placeholder="name@example.com">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" required placeholder="Seeker's Name">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone / WhatsApp *</label>
-                        <input type="tel" id="phone" required placeholder="+91 98765 43210">
+                        <label>Phone / WhatsApp</label>
+                        <input type="tel" id="phone" required placeholder="+91 ...">
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="dob">Date of Birth *</label>
+                        <label>Date of Birth</label>
                         <input type="date" id="dob" required>
                     </div>
                     <div class="form-group">
-                        <label for="tob">Time of Birth *</label>
+                        <label>Exact Time of Birth</label>
                         <input type="time" id="tob" required>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="pob">Place of Birth (City, State, Country) *</label>
-                    <input type="text" id="pob" required placeholder="e.g. Delhi, India">
+                    <label>City & Country of Birth</label>
+                    <input type="text" id="pob" required placeholder="e.g. New Delhi, India">
                 </div>
-
-                <div class="form-group">
-                    <label for="serviceSelect">Service Required *</label>
-                    <select id="serviceSelect" required>
-                        <option value="">-- Choose Option --</option>
-                        <option value="Kundli Analysis">Full Kundli Analysis</option>
-                        <option value="Matchmaking">Relationship & Matchmaking</option>
-                        <option value="Career Guidance">Career & Financial Consultation</option>
-                        <option value="Remedies">Gemstones & Spiritual Remedies</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="notes">Specific Questions (Optional)</label>
-                    <textarea id="notes" rows="3" placeholder="Briefly describe what area you need clarity on..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-gold submit-btn">Confirm Consultation</button>
+                <button type="submit" class="btn-gold submit-btn glow-effect">Unlock My Destiny</button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div class="logo">
-                    <i class="fa-solid fa-sun"></i>
-                    <span>Astrologer Monika</span>
-                </div>
-                <p>Authentic Vedic astrology consultation for career, health, relationships, and life guidance.</p>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fa-solid fa-sun"></i> Astrologer Monika
             </div>
-            <div class="footer-nav">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
-                    <li><a href="#booking">Book Consultation</a></li>
-                </ul>
+            <p>Guiding light through the ancient wisdom of Vedic Astrology.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
             </div>
-            <div class="footer-social">
-                <h4>Connect</h4>
-                <div class="social-links">
-                    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Astrologer Monika. All Rights Reserved.</p>
+            <p class="copyright">&copy; 2026 Astrologer Monika. All Cosmic Rights Reserved.</p>
         </div>
     </footer>
 
