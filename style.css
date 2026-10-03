@@ -215,67 +215,178 @@ section {
     font-size: 0.98rem;
 }
 
-/* --- About Section & Photo Formatting --- */
+/* --- About Section & Sacred Photo Formatting --- */
 .about {
     background-color: var(--bg-main);
+    overflow: hidden;
 }
 
 .about-container {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 4rem;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 4.5rem;
     align-items: center;
 }
 
+/* Photo Wrapper Box */
 .about-photo-wrapper {
     position: relative;
     width: 100%;
-    max-width: 350px;
+    max-width: 380px;
     margin: 0 auto;
+    padding: 25px;
 }
 
+/* Divine Golden Aura Ring behind the Frame */
+.holy-aura-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 105%;
+    height: 105%;
+    transform: translate(-50%, -50%);
+    border: 2px dashed rgba(197, 155, 39, 0.4);
+    border-radius: 50%;
+    animation: rotateAura 30s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.holy-aura-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 90%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.22) 0%, rgba(197, 155, 39, 0.08) 55%, transparent 75%);
+    border-radius: 50%;
+    animation: pulseAura 4s ease-in-out infinite alternate;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Main Photo Card - Shows Full Image Perfectly */
 .photo-card {
     position: relative;
     width: 100%;
-    aspect-ratio: 3 / 4;
-    border-radius: 200px 200px 24px 24px;
+    border-radius: 220px 220px 28px 28px;
     border: 3px solid var(--accent-gold);
     overflow: hidden;
-    background: #fef8eb;
-    box-shadow: var(--shadow-lg);
+    background: linear-gradient(180deg, #fffcf5 0%, #f7eed8 100%);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    z-index: 1;
 }
 
 .profile-photo {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 10%;
+    height: auto;
+    max-height: 480px;
+    /* 'contain' ensures full image is displayed without cropping her hands/face */
+    object-fit: contain;
     display: block;
+    margin: 0 auto;
     transition: transform 0.4s ease;
 }
 
 .photo-card:hover .profile-photo {
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 .photo-overlay-glow {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.25) 0%, transparent 40%);
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.3) 0%, transparent 35%);
     pointer-events: none;
 }
 
+/* Floating Holy Leaves / Lotus Petals */
+.holy-leaf {
+    position: absolute;
+    color: var(--accent-gold);
+    filter: drop-shadow(0 4px 8px rgba(197, 155, 39, 0.3));
+    z-index: 3;
+    pointer-events: none;
+    animation: floatLeaf 5s ease-in-out infinite alternate;
+}
+
+.leaf-top-left {
+    top: 5px;
+    left: 10px;
+    font-size: 1.6rem;
+    transform: rotate(-25deg);
+    animation-delay: 0s;
+}
+
+.leaf-top-right {
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem;
+    color: #eab308;
+    transform: rotate(20deg);
+    animation-delay: 1.2s;
+}
+
+.leaf-bottom-left {
+    bottom: 30px;
+    left: -10px;
+    font-size: 1.7rem;
+    animation-delay: 2.5s;
+}
+
+.leaf-bottom-right {
+    bottom: 50px;
+    right: -15px;
+    font-size: 1.5rem;
+    animation-delay: 0.8s;
+}
+
+/* Floating Sacred Clouds */
+.holy-cloud {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.85);
+    filter: drop-shadow(0 6px 12px rgba(197, 155, 39, 0.18));
+    z-index: 2;
+    pointer-events: none;
+    animation: floatCloud 7s ease-in-out infinite alternate;
+}
+
+.cloud-left {
+    top: 45%;
+    left: -28px;
+    font-size: 3.2rem;
+    color: #fff8e7;
+}
+
+.cloud-right {
+    top: 35%;
+    right: -30px;
+    font-size: 3.6rem;
+    color: #fffcf2;
+    animation-delay: 2s;
+}
+
+.cloud-bottom {
+    bottom: -10px;
+    left: 20%;
+    font-size: 4rem;
+    color: #ffffff;
+    opacity: 0.92;
+    animation-delay: 3.5s;
+}
+
+/* Experience Badge Floating on top */
 .experience-badge {
     position: absolute;
-    bottom: -15px;
-    right: -10px;
+    bottom: -10px;
+    right: 10px;
     background-color: #ffffff;
     border: 1px solid var(--border-color);
     padding: 0.75rem 1.25rem;
     border-radius: 16px;
     box-shadow: var(--shadow-md);
     text-align: center;
-    z-index: 2;
+    z-index: 4;
 }
 
 .experience-badge .years {
@@ -321,6 +432,27 @@ section {
     font-size: 0.82rem;
     color: var(--text-muted);
     margin: 0;
+}
+
+/* --- Keyframe Animations for Holy Elements --- */
+@keyframes rotateAura {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes pulseAura {
+    0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+}
+
+@keyframes floatLeaf {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-12px) rotate(15deg); }
+}
+
+@keyframes floatCloud {
+    0% { transform: translateX(0px) translateY(0px); }
+    100% { transform: translateX(10px) translateY(-8px); }
 }
 
 /* --- Services Section --- */
@@ -551,6 +683,7 @@ footer {
     .about-container { grid-template-columns: 1fr; text-align: center; }
     .form-row { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .cloud-left, .cloud-right { display: none; }
     
     .mobile-toggle { display: block; }
     nav {
