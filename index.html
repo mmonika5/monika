@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astrologer Monika | Vedic Astrology & Guidance</title>
     
-    <!-- Google Fonts & Icons -->
+    <!-- Google Fonts & Font Awesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- External Stylesheet -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -55,10 +55,11 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="about-container">
-            <!-- Arch Portal Frame for Photo -->
+            <!-- Photo Card with Arch Frame -->
             <div class="about-photo-wrapper">
-                <div class="arch-frame">
-                    <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo">
+                <div class="photo-card">
+                    <img src="monika.jpg" alt="Astrologer Monika" class="profile-photo" onerror="this.src='monika.png'">
+                    <div class="photo-overlay-glow"></div>
                 </div>
                 <div class="experience-badge">
                     <span class="years">12+</span>
@@ -75,15 +76,15 @@
                 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <h3 class="counter" data-target="12">12+</h3>
+                        <h3>12+</h3>
                         <p>Years Experience</p>
                     </div>
                     <div class="stat-card">
-                        <h3 class="counter" data-target="5000">5,000+</h3>
+                        <h3>5,000+</h3>
                         <p>Clients Guided</p>
                     </div>
                     <div class="stat-card">
-                        <h3 class="counter" data-target="98">98%</h3>
+                        <h3>98%</h3>
                         <p>Satisfaction</p>
                     </div>
                 </div>
@@ -267,7 +268,7 @@
         </div>
     </footer>
 
-    <!-- External Script -->
+    <!-- Script -->
     <script src="index.js"></script>
 </body>
 </html>
