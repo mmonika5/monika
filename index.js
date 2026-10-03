@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Generate Ambient Dust Particles (Matches Light Theme)
+    // 1. Generate Ambient Dust Particles
     const dustContainer = document.getElementById('dust-container');
-    const dustCount = window.innerWidth < 768 ? 20 : 40; 
+    const dustCount = window.innerWidth < 768 ? 15 : 30; 
 
     for (let i = 0; i < dustCount; i++) {
         const dust = document.createElement('div');
@@ -33,10 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealOnScroll.observe(el));
 
-    // 3. Parallax Effect (Smooth, No Lag)
+    // 3. Parallax Effect 
     const parallaxElements = document.querySelectorAll('.parallax');
     window.addEventListener('scroll', () => {
-        // Use requestAnimationFrame for performance to prevent lag
         window.requestAnimationFrame(() => {
             let scrollY = window.scrollY;
             parallaxElements.forEach(el => {
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Image Fallback Handling
+    // 5. Image Fallback Handling 
     const profileImg = document.getElementById('astrologerImg');
     if (profileImg) {
         const paths = ['monika.jpg', 'monika.png', 'Monika.jpg', 'Monika.png'];
@@ -68,10 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (attempt < paths.length) {
                 this.src = paths[attempt];
             } else {
-                // Generates an elegant placeholder if image is missing
+                // Generates an elegant placeholder if image is completely missing
                 this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="%23fdfbf7"/><circle cx="200" cy="250" r="100" stroke="%23c5a059" stroke-width="2" fill="none"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Cinzel, serif" font-size="20" fill="%231a1e29">Portrait Missing</text></svg>';
-                this.style.webkitMaskImage = 'none'; 
-                this.style.mixBlendMode = 'normal';
             }
         });
     }
