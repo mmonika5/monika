@@ -335,3 +335,19 @@ cite{display:block;margin-top:1rem;font-style:normal;font-family:var(--font-head
 .p1{top:36%;left:-17%}.p2{bottom:36%;right:-15%;width:62px;height:62px;animation-delay:-2.5s}
 .portrait:hover{transform:scale(1.45);z-index:9}
 @media(max-width:768px){.hero-wheel span{font-size:1.2rem}.portrait{width:56px;height:56px}.p1{left:-6%}.p2{right:-4%}.nameplate{transform:none}.hero-chips{margin-top:0}}
+
+/* ===== AUTH ===== */
+#auth-box{position:relative;display:flex;align-items:center;margin-right:.6rem}
+.g-btn{display:flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--border-color);padding:.5rem 1rem;border-radius:30px;font-family:var(--font-body);font-weight:600;font-size:.85rem;color:#3c4043;cursor:pointer;box-shadow:var(--shadow-soft);transition:.3s}
+.g-btn:hover{box-shadow:var(--shadow-gold);transform:translateY(-2px);border-color:var(--accent-gold)}
+.g-btn:disabled{opacity:.6;cursor:wait}
+#user-btn{display:flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--accent-gold);padding:.25rem .9rem .25rem .25rem;border-radius:30px;cursor:pointer;font-weight:600;font-size:.85rem;box-shadow:var(--shadow-soft)}
+#user-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover}
+#user-drop{position:absolute;right:0;top:120%;min-width:210px;background:#fff;border:1px solid var(--border-color);border-radius:12px;padding:.9rem;box-shadow:var(--shadow-gold);opacity:0;pointer-events:none;transform:translateY(-8px);transition:.3s;z-index:2100}
+#user-drop.open{opacity:1;pointer-events:auto;transform:none}
+#user-drop small{display:block;margin-bottom:.7rem;color:#5a6375;word-break:break-all}
+#user-drop button{width:100%;padding:.5rem;border:1px solid var(--border-color);border-radius:8px;background:var(--bg-main);cursor:pointer;transition:.3s}
+#user-drop button:hover{background:var(--accent-gold);color:#fff}
+#toast{position:fixed;left:50%;bottom:24px;translate:-50% 30px;background:#1a1e29;color:#f6e3a8;padding:.8rem 1.4rem;border-radius:30px;box-shadow:var(--shadow-gold);opacity:0;pointer-events:none;transition:.5s;z-index:4000;max-width:90vw;text-align:center}
+#toast.show{opacity:1;translate:-50% 0}
+@media(max-width:768px){#user-name,.g-btn span{display:none}.g-btn{padding:.5rem}#user-btn{padding:.25rem}}
