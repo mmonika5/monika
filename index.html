@@ -35,6 +35,7 @@
                 <li><a href="#tarot" class="nav-link">Tarot</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#booking" class="nav-link">Contact</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
             </ul>
         </nav>
         <div class="nav-actions">
@@ -44,8 +45,8 @@
                     <span>Sign in</span>
                 </button>
                 <div id="user-menu" hidden>
-                    <button id="user-btn" type="button" aria-haspopup="true"><img id="user-avatar" alt="" referrerpolicy="no-referrer"><span id="user-name"></span></button>
-                    <div id="user-drop"><small id="user-email"></small><button id="signout-btn" type="button">🚪 Sign out</button></div>
+                    <button id="user-btn" type="button" title="Edit profile"><span id="user-av"></span><span id="user-name"></span></button>
+                    <button id="signout-btn" type="button" class="so-btn"><span class="ic">🚪</span><span class="tx"> Sign out</span></button>
                 </div>
             </div>
             <a href="#booking" class="btn-gold">Book Reading</a>
@@ -266,14 +267,16 @@
         </div>
     </section>
 
-    <!-- Voices -->
-    <section class="voices relative-section">
-        <div class="section-header reveal"><span class="section-tag">💬 Kind Words</span><h2>Seekers Speak</h2></div>
-        <div class="voices-grid">
-            <blockquote class="reveal">“Her Kundli reading explained years of confusion in one hour.” <cite>🌟 Anjali, Delhi</cite></blockquote>
-            <blockquote class="reveal" style="transition-delay:.15s">“The remedies were simple and my career finally moved.” <cite>🚀 Rohit, Pune</cite></blockquote>
-            <blockquote class="reveal" style="transition-delay:.3s">“Warm, precise and deeply calming. Highly recommended.” <cite>🌸 Meera, Jaipur</cite></blockquote>
+    <!-- Reviews -->
+    <section id="reviews" class="reviews relative-section">
+        <div class="section-header reveal"><span class="section-tag">💬 Kind Words</span><h2>Seekers Speak</h2><p>Real reviews from people who signed in. Post as many as you like.</p></div>
+        <div class="rv-top reveal">
+            <div class="rv-score"><b id="rv-avg">–</b><div id="rv-avg-stars" class="stars">☆☆☆☆☆</div><small id="rv-count">Loading…</small></div>
+            <div id="rv-bars" class="rv-bars"></div>
+            <div id="rv-formwrap" class="rv-formwrap"></div>
         </div>
+        <div id="rv-list" class="rv-grid"></div>
+        <div class="rv-more-wrap"><button id="rv-more" class="btn-outline" type="button" hidden>Show more reviews ⬇️</button></div>
     </section>
 
     <!-- Booking Section -->
@@ -332,8 +335,38 @@
     <a href="#home" id="to-top" aria-label="Back to top">🔝</a>
     <a href="#booking" id="float-book" aria-label="Book">📿</a>
     <div id="toast" role="status"></div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <div id="signin-modal" hidden>
+        <div id="signin-box" role="dialog" aria-modal="true" aria-label="Sign in">
+            <button type="button" class="x-btn" id="si-x" aria-label="Close">✕</button>
+            <div class="nm-emoji">🔮</div>
+            <h3>Welcome, seeker</h3>
+            <p>Sign in to write reviews and save your profile.</p>
+            <button id="g-signin" class="g-btn big" type="button"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.6z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.900-6.100C.9 16.400 0 20.100 0 24s.9 7.600 2.600 10.800l7.900-6.100z"/><path fill="#34A853" d="M24 48c6.500 0 11.900-2.100 15.900-5.800l-7.600-5.900c-2.100 1.400-4.900 2.300-8.300 2.300-6.300 0-11.600-4.100-13.500-9.800l-7.900 6.100C6.500 42.600 14.600 48 24 48z"/></svg><span>Continue with Google</span></button>
+            <div class="or"><span>or</span></div>
+            <form id="mail-form"><input id="mail-input" type="email" required placeholder="you@gmail.com" autocomplete="email"><button type="submit" id="mail-btn">✉️ Email me a magic link</button></form>
+            <p id="si-msg" role="status"></p>
+        </div>
+    </div>
+    <div id="name-modal" hidden>
+        <form id="name-form" autocomplete="off">
+            <button type="button" class="x-btn" id="nm-x" aria-label="Close">✕</button>
+            <div id="pf-av"></div>
+            <h3 id="nm-title">Your profile</h3>
+            <p id="nm-sub"></p>
+            <p class="pf-meta" id="pf-meta"></p>
+            <div class="nm-field"><span>@</span><input id="nm-input" maxlength="20" placeholder="your_name" required></div>
+            <p id="nm-hint" class="nm-hint"></p>
+            <p id="nm-err" role="alert"></p>
+            <div class="nm-actions"><button type="button" id="nm-cancel">Cancel</button><button type="submit" id="nm-save">✨ Save username</button></div>
+            <button type="button" id="pf-signout" class="linklike">🚪 Sign out</button>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
     <script src="auth.js"></script>
+    <script src="reviews.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
