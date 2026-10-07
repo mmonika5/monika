@@ -1,4 +1,4 @@
-/* Firebase auth. Only 2 root collections: u/{uid} {u username, a avatar} | r/{id} {a author uid, s stars, t text, c, e}; r/0 {n} = review counter */
+/* Firebase auth. Only 2 root collections. u/{uid} {u username} | r/{id} {a author uid, s stars, t text, c created (unix s), e edited (unix s)}; r/0 {n} = review counter */
 const FIREBASE_CONFIG = {
     apiKey: "AIzaSyCHWrBA5nuYOopFo8BmnkKLQMXCCOXfMdI",
     authDomain: "monika-15600.firebaseapp.com",
@@ -42,12 +42,8 @@ const FIREBASE_CONFIG = {
     }
 
     async function syncProfile() {
-        const ref = db.collection('u').doc(user.uid);
         try {
-            const s = await ref.get(), x = s.data() || {};
-            // Sync avatar 'a' only; creation date and last sign-in are already provided by Firebase Auth metadata
-            await ref.set({ a: user.photoURL || null }, { merge: true });
-            profile = { u: x.u || null };
+            profile = { u: ((await db.collection('u').doc(user.uid).get()).data() || {}).u || null };
             dbMissing = false;
             if (profile.u) toast('✨ Welcome back, @' + profile.u + '!');
         } catch (e) {
@@ -92,6 +88,7 @@ const FIREBASE_CONFIG = {
 
     const hint = (t, c = '') => { const h = $('nm-hint'); h.textContent = t; h.className = 'nm-hint ' + c; };
     const val = () => $('nm-input').value.trim().replace(/^@/, '');
+    let ct;
     const check = () => {
         const v = val();
         if (!v) return hint('');
@@ -106,8 +103,7 @@ const FIREBASE_CONFIG = {
         $('nm-title').textContent = required ? 'Choose your username' : 'Your profile';
         $('nm-sub').textContent = required ? 'Pick a unique name to show on the site. You can change it anytime.' : 'Change your username below.';
         $('pf-av').replaceChildren(avatar(user.photoURL, (profile && profile.u) || dn, 'lg'));
-        const createdDate = user.metadata && user.metadata.creationTime ? new Date(user.metadata.creationTime) : new Date();
-        $('pf-meta').textContent = (user.email || '') + ' • Member since ' + createdDate.toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+        $('pf-meta').textContent = (user.email || '') + ' • Member since ' + new Date(user.metadata.creationTime).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
         $('nm-input').value = (profile && profile.u) || dn.toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 20);
         $('nm-err').textContent = ''; $('nm-cancel').hidden = $('nm-x').hidden = required;
         show(nameModal); check(); setTimeout(() => $('nm-input').select(), 60);
@@ -118,7 +114,7 @@ const FIREBASE_CONFIG = {
         if (!NAME_RE.test(v)) { $('nm-err').textContent = 'Use 3 to 20 letters, numbers or underscores only.'; return; }
         const b = $('nm-save'); b.disabled = true; b.textContent = 'Saving…';
         try {
-            await db.collection('u').doc(user.uid).set({ u: v, a: user.photoURL || null }, { merge: true });
+            await db.collection('u').doc(user.uid).set({ u: v }, { merge: true });
             profile = { ...profile, u: v }; renderHeader(); hide(nameModal); emit(); toast('✅ Username set to @' + v);
         } catch (err) { $('nm-err').textContent = err.code === 'permission-denied' ? 'Not allowed. Check firestore.rules is published.' : err.message; }
         b.disabled = false; b.textContent = '✨ Save username';

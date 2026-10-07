@@ -16,11 +16,7 @@
                 const uids = [...new Set(s.docs.map(d => d.data().a))];
                 const ps = await Promise.all(uids.map(id => a.db.collection('u').doc(id).get()));
                 const who = {}; ps.forEach((p, i) => who[uids[i]] = p.exists ? p.data() : {});
-                all = s.docs.map(d => { 
-                    const x = d.data(), p = who[x.a] || {}; 
-                    const createdDate = typeof x.c === 'number' ? new Date(x.c) : (x.c && x.c.toDate ? x.c.toDate() : new Date());
-                    return { ref: d.ref, id: d.id, uid: x.a, u: p.u || 'seeker', av: p.a || null, rt: x.s, t: x.t, c: createdDate, ed: x.e || null }; 
-                });
+                all = s.docs.map(d => { const x = d.data(), p = who[x.a] || {}; return { ref: d.ref, id: d.id, uid: x.a, u: p.u || 'seeker', av: me() && x.a === me().uid ? me().photoURL : null, rt: x.s, t: x.t, c: new Date(x.c * 1000), ed: x.e || null }; });
                 status = '';
             } catch (e) { all = []; status = e.code === 'permission-denied' ? 'Publish firestore.rules in Firebase.' : 'Could not load reviews (is Firestore created?).'; }
         }
@@ -90,21 +86,21 @@
         const cnt = el('small', 'cnt', ta.value.length + '/600'); ta.oninput = () => cnt.textContent = ta.value.length + '/600';
         const err = el('p', 'rv-err'), acts = el('div', 'rv-acts');
         const send = el('button', 'btn-gold', editing ? 'Update review' : '🚀 Post review'); send.type = 'button';
+        const now = () => Math.floor(Date.now() / 1000);
         send.onclick = async () => {
             const t = ta.value.trim();
             if (!rating) return err.textContent = 'Please pick a star rating.';
             if (t.length < 10) return err.textContent = 'Please write at least 10 characters.';
             if (!editing && Date.now() - last < 15000) return err.textContent = 'Please wait a few seconds before posting again.';
             send.disabled = true; err.textContent = '';
-            const now = Date.now(); // Saves as numeric Unix timestamp in milliseconds
             try {
-                if (editing) await editing.ref.update({ s: rating, t, e: now });
+                if (editing) await editing.ref.update({ s: rating, t, e: now() });
                 else {
                     const cref = a.db.collection('r').doc('0');
                     await a.db.runTransaction(async tx => {
                         const cs = await tx.get(cref), n = (cs.exists ? cs.data().n : 0) + 1;
                         tx.set(cref, { n });
-                        tx.set(a.db.collection('r').doc(String(n)), { a: a.user.uid, s: rating, t, c: now });
+                        tx.set(a.db.collection('r').doc(String(n)), { a: a.user.uid, s: rating, t, c: now() });
                     });
                     last = Date.now();
                 }
