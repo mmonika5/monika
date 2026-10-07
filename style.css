@@ -331,10 +331,7 @@ cite{display:block;margin-top:1rem;font-style:normal;font-family:var(--font-head
 .nameplate b{display:block;font-family:var(--font-heading);letter-spacing:1px;color:#f6e3a8}.nameplate small{font-size:.75rem;opacity:.9}
 .photo-card:hover .nameplate{transform:none}
 .photo-card:hover .in-chip{background:var(--accent-gold);color:#fff}
-.portrait{position:absolute;z-index:5;width:76px;height:76px;border-radius:50%;border:3px solid #fff;outline:2px solid var(--accent-gold);background:url(monika.jpg) 50% 17%/260% auto no-repeat #fbf1d6;box-shadow:var(--shadow-gold);animation:float 5s ease-in-out infinite alternate;transition:.4s}
-.p1{top:36%;left:-17%}.p2{bottom:36%;right:-15%;width:62px;height:62px;animation-delay:-2.5s}
-.portrait:hover{transform:scale(1.45);z-index:9}
-@media(max-width:768px){.hero-wheel span{font-size:1.2rem}.portrait{width:56px;height:56px}.p1{left:-6%}.p2{right:-4%}.nameplate{transform:none}.hero-chips{margin-top:0}}
+@media(max-width:768px){.hero-wheel span{font-size:1.2rem}.nameplate{transform:none}.hero-chips{margin-top:0}}
 
 /* ===== AUTH ===== */
 #auth-box{position:relative;display:flex;align-items:center;margin-right:.6rem}
@@ -459,7 +456,7 @@ input,textarea,select{font-size:16px}
   #user-name{display:none!important}
   .marquee-track{gap:1.6rem;font-size:.85rem}
   .tcard{width:calc(50% - .5rem)}
-  .about-photo-wrapper{max-width:240px}.portrait{display:none}
+  .about-photo-wrapper{max-width:240px}
 }
 @media(hover:none){
   #glow,.spark{display:none}
@@ -472,3 +469,20 @@ input,textarea,select{font-size:16px}
 .rv-own{display:flex;gap:.5rem;margin-top:1rem}
 .rv-own button{flex:1;padding:.45rem;border:1px solid var(--border-color);border-radius:8px;background:var(--bg-main);cursor:pointer;font-size:.8rem;transition:.3s}
 .rv-own button:hover{background:var(--accent-gold);color:#fff}
+
+/* ===== REVIEWS v2 (professional cards) ===== */
+.rv-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;align-items:start}
+.rv-card{display:flex;flex-direction:column;gap:.9rem;padding:1.5rem 1.6rem;border-radius:14px;border:1px solid var(--border-color);border-top:3px solid var(--accent-gold);box-shadow:0 6px 24px rgba(26,30,41,.05)}
+.rv-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-gold)}
+.rv-card.mine{background:linear-gradient(180deg,#fffdf7,#fff)}
+.rv-head{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"av who" "av st";column-gap:.85rem;row-gap:.15rem;align-items:center;margin:0}
+.rv-head .av{grid-area:av;width:44px;height:44px}
+.rv-who{grid-area:who;min-width:0}
+.rv-who b{display:block;font-family:var(--font-heading);font-size:.95rem;color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rv-who small{color:#8a8f9c;font-size:.78rem}
+.rv-head .stars{grid-area:st;font-size:1rem;letter-spacing:1px}
+.rv-card p{margin:0;color:#3b4252;font-size:.98rem;line-height:1.7}
+.rv-own{display:flex;align-items:center;gap:.4rem;margin-top:auto;padding-top:.8rem;border-top:1px solid var(--border-color)}
+.rv-you{flex:1;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent-gold-dark);font-family:var(--font-heading);font-weight:600}
+.rv-own button{flex:none;padding:.3rem .8rem;border-radius:20px;font-size:.78rem}
+.rv-own button:last-child:hover{background:#c0392b;border-color:#c0392b}

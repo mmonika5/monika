@@ -1,4 +1,4 @@
-/* Firebase auth. Only 2 root collections. u/{uid} {u username} | r/{id} {a author uid, s stars, t text, c created (unix s), e edited (unix s)}; r/0 {n} = review counter */
+/* Firebase auth. Only 2 root collections. u/{uid} {u username} | r/{random 20 char id} {a author uid, s stars, t text, c created (unix s), e edited (unix s)} */
 const FIREBASE_CONFIG = {
     apiKey: "AIzaSyCHWrBA5nuYOopFo8BmnkKLQMXCCOXfMdI",
     authDomain: "monika-15600.firebaseapp.com",

@@ -42,19 +42,19 @@
         const box = $('rv-list'); box.replaceChildren();
         all.slice(0, shown).forEach((r, i) => {
             const c = el('article', 'rv-card'); c.style.animationDelay = (i % 6) * 0.08 + 's';
-            const head = el('div', 'rv-head'), who = el('div');
-            who.append(el('b', '', '@' + r.u + ' • #' + r.id), el('small', '', r.c.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) + (r.ed ? ' • edited' : '')));
-            head.append(A().avatar(r.av, r.u), who);
+            const head = el('div', 'rv-head'), who = el('div', 'rv-who');
+            who.append(el('b', '', '@' + r.u), el('small', '', r.c.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) + (r.ed ? ' · edited' : '')));
             const st = el('div', 'stars', stars(r.rt)); st.setAttribute('aria-label', r.rt + ' out of 5');
-            c.append(head, st, el('p', '', r.t));
+            head.append(A().avatar(r.av, r.u), who, st);
+            c.append(head, el('p', '', r.t));
             if (me() && r.uid === me().uid) {
                 c.classList.add('mine');
                 const act = el('div', 'rv-own');
-                const ed = el('button', '', '✏️ Edit'), del = el('button', '', '🗑️ Delete');
+                const ed = el('button', '', 'Edit'), del = el('button', '', 'Delete');
                 ed.type = del.type = 'button';
                 ed.onclick = () => { editing = r; form(); $('rv-formwrap').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
                 del.onclick = async () => { if (!confirm('Delete this review?')) return; try { await r.ref.delete(); A().toast('🗑️ Review deleted'); load(); } catch (e) { A().toast('❌ ' + e.message); } };
-                act.append(ed, del); c.append(act);
+                act.append(el('span', 'rv-you', 'Your review'), ed, del); c.append(act);
             }
             box.append(c);
         });
@@ -71,7 +71,7 @@
         if (!a.user) return note('✍️ Sign in to leave a review', 'Sign in', () => a.openSignIn());
         if (!a.profile || !a.profile.u) return note('Choose a username to review', 'Choose username', () => a.openProfile(true));
         let rating = editing ? editing.rt : 0;
-        box.append(el('h4', '', editing ? '✏️ Edit your review #' + editing.id : '✍️ Write a review'));
+        box.append(el('h4', '', editing ? '✏️ Edit your review' : '✍️ Write a review'));
         const row = el('div', 'star-pick'), mood = el('small', 'mood', MOODS[rating]);
         const paint = n => [...row.children].forEach((b, i) => b.classList.toggle('on', i < n));
         for (let i = 1; i <= 5; i++) {
@@ -96,12 +96,7 @@
             try {
                 if (editing) await editing.ref.update({ s: rating, t, e: now() });
                 else {
-                    const cref = a.db.collection('r').doc('0');
-                    await a.db.runTransaction(async tx => {
-                        const cs = await tx.get(cref), n = (cs.exists ? cs.data().n : 0) + 1;
-                        tx.set(cref, { n });
-                        tx.set(a.db.collection('r').doc(String(n)), { a: a.user.uid, s: rating, t, c: now() });
-                    });
+                    await a.db.collection('r').doc().set({ a: a.user.uid, s: rating, t, c: now() });
                     last = Date.now();
                 }
                 a.toast(editing ? '✅ Review updated' : '🌟 Thank you for your review!'); editing = null; load();
