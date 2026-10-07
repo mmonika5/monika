@@ -70,16 +70,6 @@ const FIREBASE_CONFIG = {
             if (e.code !== 'auth/popup-closed-by-user' && e.code !== 'auth/cancelled-popup-request') $('si-msg').textContent = '❌ ' + (e.code === 'auth/unauthorized-domain' ? 'Add this domain in Firebase > Authentication > Settings > Authorized domains' : e.message);
         }
     });
-    $('mail-form').addEventListener('submit', async e => {
-        e.preventDefault(); const b = $('mail-btn'), em = $('mail-input').value.trim(); b.disabled = true;
-        try { await auth.sendSignInLinkToEmail(em, { url: location.origin + location.pathname, handleCodeInApp: true }); localStorage.setItem('emailForSignIn', em); $('si-msg').textContent = '📬 Check your inbox for the sign-in link.'; }
-        catch (err) { $('si-msg').textContent = '❌ ' + (err.code === 'auth/operation-not-allowed' ? 'Enable Email link sign-in in Firebase first' : err.message); }
-        b.disabled = false;
-    });
-    if (auth.isSignInWithEmailLink(location.href)) {
-        const em = localStorage.getItem('emailForSignIn') || prompt('Confirm your email to finish signing in');
-        if (em) auth.signInWithEmailLink(em, location.href).then(() => { localStorage.removeItem('emailForSignIn'); history.replaceState(null, '', location.pathname + location.hash); }).catch(e => toast('❌ ' + e.message));
-    }
     auth.getRedirectResult().catch(e => e.code && toast('❌ ' + e.message));
 
     const signOut = async () => { await auth.signOut(); toast('👋 Signed out. See you under the stars!'); };
