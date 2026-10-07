@@ -486,3 +486,12 @@ input,textarea,select{font-size:16px}
 .rv-you{flex:1;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent-gold-dark);font-family:var(--font-heading);font-weight:600}
 .rv-own button{flex:none;padding:.3rem .8rem;border-radius:20px;font-size:.78rem}
 .rv-own button:last-child:hover{background:#c0392b;border-color:#c0392b}
+
+/* ===== PAY ===== */
+.pay{background:linear-gradient(180deg,var(--bg-main),#fff)}
+.pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;max-width:1100px;margin:0 auto}
+.pay-card{background:#fff;border:1px solid var(--border-color);border-top:3px solid var(--accent-gold);border-radius:14px;padding:1.8rem 1.4rem;text-align:center;box-shadow:var(--shadow-soft);transition:.4s;display:flex;flex-direction:column;gap:.8rem;align-items:center}
+.pay-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-gold)}
+.pay-card h3{font-size:1.05rem}.pay-price{font-family:var(--font-heading);font-size:1.9rem;color:var(--accent-gold-dark);font-weight:700}
+.pay-card .btn-gold{width:100%}.pay-card .btn-gold:disabled{opacity:.6;cursor:wait}
+.pay-note{text-align:center;color:var(--text-muted);grid-column:1/-1}

@@ -34,6 +34,7 @@
                 <li><a href="#journey" class="nav-link">Cosmic Journey</a></li>
                 <li><a href="#tarot" class="nav-link">Tarot</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#pay" class="nav-link">Pay</a></li>
                 <li><a href="#booking" class="nav-link">Contact</a></li>
                 <li><a href="#reviews" class="nav-link">Reviews</a></li>
             </ul>
@@ -278,6 +279,12 @@
         <div class="rv-more-wrap"><button id="rv-more" class="btn-outline" type="button" hidden>Show more reviews ⬇️</button></div>
     </section>
 
+    <!-- Pay -->
+    <section id="pay" class="pay relative-section">
+        <div class="section-header reveal"><span class="section-tag">💳 Secure Payment</span><h2>Book &amp; Pay Online</h2><p>Pay securely with PhonePe (UPI, cards, net banking). Sign in first, then fill in your birth details in the form below.</p></div>
+        <div id="pay-list" class="pay-grid"><p class="pay-note">Loading…</p></div>
+    </section>
+
     <!-- Booking Section -->
     <section id="booking" class="booking relative-section">
         <div class="booking-card reveal">
@@ -364,8 +371,10 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+    <script src="protect.js"></script>
     <script src="auth.js"></script>
     <script src="reviews.js"></script>
+    <script src="pay.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
