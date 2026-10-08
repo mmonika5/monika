@@ -1,5 +1,5 @@
-/* One Vercel serverless function for /api/plans, /api/pay and /api/status. Secrets come from Vercel Environment Variables, never from the repo. */
-const { randomBytes } = require('crypto');
+/* One Vercel serverless function: /api/plans /api/pay /api/status
+   Secrets live in Vercel Environment Variables, never in the repo. */
 const FIREBASE_API_KEY = 'AIzaSyCHWrBA5nuYOopFo8BmnkKLQMXCCOXfMdI'; // public web key, same as auth.js
 const E = process.env;
 const H = E.PHONEPE_LIVE === 'true'
@@ -7,10 +7,12 @@ const H = E.PHONEPE_LIVE === 'true'
     : { auth: 'https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token', api: 'https://api-preprod.phonepe.com/apis/pg-sandbox/checkout/v2' };
 
 // EDIT PRICES HERE. p = price in paise (5100 = Rs 51.00). Prices are enforced on the server only.
+// If you change a price here, change the same number in firestore.rules (function price) too.
 const PLANS = {
-    tarot: { n: 'Tarot Reading', p: 5100 },
+    ask: { n: 'Ask Any 1 Question', p: 5100, q: 1 }, // q: 1 = the buyer must type a question before paying
     kundli: { n: 'Kundli Reading', p: 110000 }
 };
+const fail = (res, code, msg) => res.status(code).json({ error: msg });
 
 let tok = { t: '', e: 0 };
 async function token() {
@@ -45,15 +47,17 @@ async function uid(req) {
 }
 
 const routes = {
-    plans: (req, res) => res.json(Object.entries(PLANS).map(([k, v]) => ({ k, n: v.n, p: v.p }))),
+    plans: (req, res) => res.json(Object.entries(PLANS).map(([k, v]) => ({ k, n: v.n, p: v.p, q: v.q ? 1 : 0 }))),
 
+    // The site creates the order record first (o/{id}) and sends its id here. The id must start with the buyer's uid.
     async pay(req, res) {
-        if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
+        if (req.method !== 'POST') return fail(res, 405, 'POST only');
         const u = await uid(req);
-        if (!u) return res.status(401).json({ error: 'Please sign in first' });
-        const k = req.body && req.body.plan, plan = PLANS[k];
-        if (!plan) return res.status(400).json({ error: 'Unknown plan' });
-        const id = u + '-' + randomBytes(5).toString('hex'), site = (req.headers['x-forwarded-proto'] || 'https') + '://' + (req.headers['x-forwarded-host'] || req.headers.host);
+        if (!u) return fail(res, 401, 'Please sign in first');
+        const k = req.body && req.body.plan, plan = PLANS[k], id = req.body && req.body.id;
+        if (!plan) return fail(res, 400, 'Unknown plan');
+        if (typeof id !== 'string' || !id.startsWith(u + '-') || !/^[\w-]{6,63}$/.test(id)) return fail(res, 400, 'Bad order id');
+        const site = (req.headers['x-forwarded-proto'] || 'https') + '://' + (req.headers['x-forwarded-host'] || req.headers.host);
         const j = await pp('/pay', {
             merchantOrderId: id, amount: plan.p, expireAfter: 1800, metaInfo: { udf1: k },
             paymentFlow: { type: 'PG_CHECKOUT', message: plan.n, merchantUrls: { redirectUrl: site + '/pay.html?order=' + id } }
@@ -61,9 +65,10 @@ const routes = {
         res.json({ url: j.redirectUrl });
     },
 
+    // Real payment state straight from PhonePe (only for your own orders)
     async status(req, res) {
         const u = await uid(req), id = req.body && req.body.order;
-        if (!u || typeof id !== 'string' || !id.startsWith(u + '-')) return res.status(403).json({ error: 'Not your order' });
+        if (!u || typeof id !== 'string' || !id.startsWith(u + '-')) return fail(res, 403, 'Not your order');
         res.json({ state: (await pp('/order/' + encodeURIComponent(id) + '/status')).state });
     }
 };
@@ -71,7 +76,7 @@ const errors = { pay: 'Payment error. Please try again.', status: 'Could not che
 
 module.exports = async (req, res) => {
     const name = req.query.fn, fn = routes[name];
-    if (!fn) return res.status(404).json({ error: 'Not found' });
+    if (!fn) return fail(res, 404, 'Not found');
     try { await fn(req, res); }
-    catch (e) { console.error(e.message); res.status(500).json({ error: errors[name] || 'Server error' }); }
+    catch (e) { console.error(e.message); if (!res.headersSent) fail(res, 500, errors[name] || 'Server error'); }
 };

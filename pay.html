@@ -57,8 +57,40 @@
     <main class="sub">
 <!-- Pay -->
     <section id="pay" class="pay relative-section">
-        <div class="section-header reveal"><span class="section-tag">💳 Secure Payment</span><h2>Book &amp; Pay Online</h2><p>Pay securely with PhonePe (UPI, cards, net banking). Sign in first, then fill in your birth details on the Contact page.</p></div>
+        <div class="section-header reveal"><span class="section-tag">💳 Secure Payment</span><h2>Book &amp; Pay Online</h2><p>Pay with PhonePe (UPI, cards, net banking) or scan a UPI QR. Sign in first, then fill in your birth details on the Contact page.</p></div>
         <div id="pay-list" class="pay-grid"><p class="pay-note">Loading…</p></div>
+
+        <div id="qr-panel" class="qr-panel" hidden>
+            <button type="button" class="x-btn" id="qr-x" aria-label="Close">✕</button>
+            <span class="section-tag">📱 Pay with any UPI app</span>
+            <h3 id="qr-title"></h3>
+            <div class="qr-grid">
+                <div class="qr-left"><div id="qr-box" class="qr-box"></div><a id="qr-open" class="btn-gold" href="#">📲 Open UPI app</a></div>
+                <div class="qr-right">
+                    <div class="qr-amt" id="qr-amt"></div>
+                    <p>Pay to <b>Astrologer Monika</b><br>UPI ID: <b id="qr-upi"></b></p>
+                    <p>Order ID: <b id="qr-oid"></b> <button type="button" id="qr-copy" class="mini">Copy</button></p>
+                    <ol class="qr-steps"><li>Scan with PhonePe, GPay, Paytm or any UPI app. On mobile, tap <b>Open UPI app</b>.</li><li>Keep the amount and the order ID note exactly as filled in.</li><li>After paying, enter the UTR / reference number below.</li></ol>
+                    <form id="qr-claim"><input id="qr-utr" placeholder="UTR / reference number" maxlength="30" required autocomplete="off"><button type="submit" id="qr-claim-btn" class="btn-gold">✅ I have paid</button></form>
+                    <p id="qr-err" class="rv-err"></p>
+                    <p id="qr-status" class="qr-status new" role="status">Waiting for your payment…</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="orders"><h3>📦 My Orders</h3><div id="my-orders"><p class="pay-note">Sign in to see your orders.</p></div></div>
+        <div id="wa-modal" hidden>
+            <div id="wa-box" role="dialog" aria-modal="true" aria-labelledby="wa-title">
+                <button type="button" class="x-btn" id="wa-x" aria-label="Close">✕</button>
+                <div class="nm-emoji">💬</div>
+                <h3 id="wa-title"></h3>
+                <p id="wa-sub"></p>
+                <a id="wa-go" class="btn-gold wa-go" href="#">💬 Continue on WhatsApp</a>
+                <p id="wa-count" class="wa-count" role="status"></p>
+                <button type="button" id="wa-stay" class="linklike">Stay on this page</button>
+            </div>
+        </div>
+        <p class="pay-help">Need help with a payment? 📞 <a class="pay-phone" href="tel:+917065921594">7065921594</a> · <a href="https://wa.me/917065921594" target="_blank" rel="noopener">WhatsApp</a></p>
     </section>
 
     
@@ -72,9 +104,10 @@
                 <i class="fa-solid fa-sun"></i> Astrologer Monika
             </div>
             <p>Guiding light through the ancient wisdom of Vedic Astrology.</p>
+            <p class="foot-phone">📞 <a href="tel:+917065921594">+91 70659 21594</a></p>
             <nav class="foot-nav"><a href="index.html">Home</a><a href="journey.html">Cosmic Journey</a><a href="tarot.html">Tarot</a><a href="services.html">Services</a><a href="reviews.html">Reviews</a><a href="pay.html">Pay</a><a href="contact.html">Contact</a></nav>
             <div class="social-links">
-                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://wa.me/917065921594" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#"><i class="fa-brands fa-youtube"></i></a>
             </div>
