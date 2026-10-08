@@ -573,3 +573,71 @@ body{animation:pageIn .5s ease-out}
 .tcard::after{content:'';position:absolute;left:0;right:0;top:100%;height:22px}
 .btn-gold:active,.btn-outline:active,.btn-wa:active,.g-btn:active,.mini:active{transform:scale(.97)}
 @media (prefers-reduced-motion:reduce){.btn-wa::after,#float-book::after{display:none}body{animation:none}}
+
+/* ===== CLASSIC POLISH v4 ===== */
+/* typography + chrome */
+html{scrollbar-width:thin;scrollbar-color:#c5a059 #fdfbf7}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#fdfbf7}
+::-webkit-scrollbar-thumb{background:linear-gradient(#d9b873,#a67c33);border-radius:10px;border:2px solid #fdfbf7}
+::selection{background:var(--accent-gold);color:#1a1e29}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{letter-spacing:.015em}
+
+/* header: gold hairline, compacts on scroll */
+header{transition:padding .35s var(--ease),box-shadow .35s,background .35s}
+header::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-gold),transparent);opacity:.75;pointer-events:none}
+header.scrolled{padding-top:.55rem;padding-bottom:.55rem;background:rgba(253,251,247,.98);box-shadow:0 10px 30px rgba(26,30,41,.09)}
+
+/* section headings: ornamental rules that draw in */
+.section-header .section-tag::before,.section-header .section-tag::after{content:'';display:inline-block;width:28px;height:1px;background:var(--accent-gold);vertical-align:middle;margin:0 .8rem;opacity:.8}
+.section-header h2::after{content:'';display:block;width:0;height:2px;margin:1.1rem auto 0;background:linear-gradient(90deg,transparent,var(--accent-gold),transparent);transition:width 1.3s var(--ease) .35s}
+.section-header.active h2::after,.reveal.active .section-header h2::after{width:130px}
+
+/* buttons: gold gradient that glides, outline that fills */
+.btn-gold{background-image:linear-gradient(100deg,#e3c887 0%,#c5a059 38%,#8f6a25 100%);background-size:230% 100%;background-position:0 0;box-shadow:0 6px 18px rgba(197,160,89,.28)}
+.btn-gold:hover{background-image:linear-gradient(100deg,#e3c887 0%,#c5a059 38%,#8f6a25 100%);background-position:100% 0}
+.btn-outline{display:inline-block;position:relative;overflow:hidden;isolation:isolate}
+.btn-outline::before{content:'';position:absolute;inset:0;background:var(--accent-gold);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);z-index:-1}
+.btn-outline:hover{background:transparent;color:#1a1e29}
+.btn-outline:hover::before{transform:scaleX(1)}
+
+/* cards: fine inner gold frame that tightens on hover */
+.explore-card,.pay-card{position:relative}
+.service-card::after,.explore-card::after,.pay-card::after{content:'';position:absolute;inset:8px;border:1px solid rgba(197,160,89,.28);border-radius:9px;pointer-events:none;transition:inset .4s var(--ease),border-color .4s}
+.service-card:hover::after,.explore-card:hover::after,.pay-card:hover::after{inset:5px;border-color:rgba(197,160,89,.7)}
+
+/* hero entrance */
+@keyframes riseIn{from{opacity:0;transform:translateY(26px)}}
+.hero-content.active>:not(.badge):not(.hero-title){animation:riseIn 1s var(--ease) backwards}
+.hero-content.active>.hero-subtitle{animation-delay:.28s}
+.hero-content.active>.hero-chips{animation-delay:.42s}
+.hero-content.active>.hero-cta{animation-delay:.58s}
+.hero-content.active>.hero-title{animation:riseIn 1s var(--ease) .12s backwards,shine 7s ease-in-out infinite alternate}
+
+/* marquee edge fades */
+.marquee::before,.marquee::after{content:'';position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none}
+.marquee::before{left:0;background:linear-gradient(90deg,#1a1e29,transparent)}
+.marquee::after{right:0;background:linear-gradient(270deg,#1a1e29,transparent)}
+
+/* tarot cards are dealt onto the table */
+@keyframes deal{from{opacity:0;translate:0 -90px;rotate:0deg;scale:.85}}
+.tcard{animation:deal .8s var(--ease) backwards;animation-delay:calc(var(--n,0)*.11s)}
+
+/* journey: glowing focus planet + soft halo behind the system */
+@keyframes planetGlow{from{box-shadow:inset -4px -4px 8px rgba(0,0,0,.4),0 0 14px var(--accent-gold)}to{box-shadow:inset -4px -4px 8px rgba(0,0,0,.4),0 0 36px var(--accent-gold)}}
+.active-target .planet{animation:planetGlow 2s ease-in-out infinite alternate}
+.sticky-solar-view{background:radial-gradient(circle at 50% 50%,rgba(197,160,89,.14),transparent 62%)}
+
+/* classic dark footer */
+footer{background:#12122b;color:#e9dfc2;border-top:2px solid var(--accent-gold);position:relative;z-index:2}
+footer::before{content:'✦ ✧ ✦';display:block;color:var(--accent-gold);letter-spacing:1rem;margin-bottom:1.2rem;opacity:.8}
+footer .logo{color:#f1d98f}
+.footer-content .logo i{animation:slowSpin 20s linear infinite}
+footer .footer-content p{color:#cfc6ab}
+.foot-nav a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size .4s var(--ease),color .3s,opacity .3s}
+.foot-nav a:hover{background-size:100% 1px;color:#f6e3a8}
+.social-links a{color:#f1d98f}.social-links a:hover{color:#fff}
+.foot-phone a:hover{color:#f6e3a8}
+
+@media(max-width:768px){.section-header .section-tag::before,.section-header .section-tag::after{width:16px;margin:0 .5rem}footer::before{letter-spacing:.7rem}}
+@media (prefers-reduced-motion:reduce){.hero-content.active>*,.tcard,.active-target .planet{animation:none}.section-header h2::after{transition:none;width:130px}}

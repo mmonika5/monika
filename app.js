@@ -577,6 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const h = document.documentElement;
         if (bar) bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - innerHeight) * 100) + '%';
         if (top) top.classList.toggle('show', scrollY > 600);
+        const hd = $('#header'); if (hd) hd.classList.toggle('scrolled', scrollY > 30);
     }, { passive: true });
 
     // Cursor glow + sparkle trail
@@ -613,6 +614,19 @@ document.addEventListener('DOMContentLoaded', () => {
         $$('.service-card').forEach(c => c.addEventListener('mouseleave', () => { c.style.transition = ''; c.style.transform = ''; }));
     }
 
+    // Count-up numbers (12+, 5k+, 100%)
+    const counters = $$('.stat-card h3, .experience-badge .years');
+    if (counters.length && !reduce) {
+        const run = el => {
+            const m = el.textContent.trim().match(/^(\d+)(.*)$/); if (!m) return;
+            const end = +m[1], suf = m[2], t0 = performance.now(), dur = 1500;
+            const tick = t => { const p = Math.min(1, (t - t0) / dur); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))) + suf; if (p < 1) requestAnimationFrame(tick); };
+            el.textContent = '0' + suf; requestAnimationFrame(tick);
+        };
+        const io = new IntersectionObserver((es, o) => es.forEach(en => { if (en.isIntersecting) { run(en.target); o.unobserve(en.target); } }), { threshold: .6 });
+        counters.forEach(n => io.observe(n));
+    }
+
     // Contact: copy WhatsApp number
     const cp = $('#copy-num');
     if (cp) cp.addEventListener('click', async () => {
@@ -641,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
         table.innerHTML = ''; cards = [];
         shuffled(deck).slice(0, 5).forEach((d, i) => {
             const c = document.createElement('div');
-            c.className = 'tcard'; c.style.setProperty('--r', (i - 2) * 5 + 'deg');
+            c.className = 'tcard'; c.style.setProperty('--r', (i - 2) * 5 + 'deg'); c.style.setProperty('--n', i);
             c.tabIndex = 0; c.setAttribute('role', 'button'); c.setAttribute('aria-label', 'Tarot card ' + (i + 1) + ', face down. Press to reveal.');
             c.innerHTML = `<div class="tface tback"><span>🔮</span></div><div class="tface tfront"><div class="num">${d[0]}</div><div class="sym">${d[2]}</div><h4>${d[1]}</h4><small>${d[3]}</small></div>`;
             c.addEventListener('click', () => {
