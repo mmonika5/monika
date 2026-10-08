@@ -3,7 +3,7 @@
 /* Deterrent only: blocks right-click, view-source/DevTools shortcuts and silences console on the live site. Not real security. */
 (() => {
     const stop = e => e.preventDefault();
-    document.addEventListener('contextmenu', stop);
+    document.addEventListener('contextmenu', e => { if (!/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) stop(e); });
     document.addEventListener('dragstart', e => e.target.tagName === 'IMG' && stop(e));
     document.addEventListener('keydown', e => {
         const k = e.key.toLowerCase(), c = e.ctrlKey || e.metaKey;
@@ -35,9 +35,9 @@ const FIREBASE_CONFIG = {
         if (url) { const i = new Image(); i.referrerPolicy = 'no-referrer'; i.alt = ''; i.onload = () => { s.textContent = ''; s.appendChild(i); }; i.src = url; }
         return s;
     };
-    const Auth = window.Auth = { db: null, user: null, profile: null, dbMissing: false, avatar, toast, openSignIn() { toast('⚙️ Add your Firebase config in auth.js'); }, openProfile() {} };
+    const Auth = window.Auth = { db: null, user: null, profile: null, dbMissing: false, avatar, toast, openSignIn() { toast('⚙️ Add your Firebase config in app.js'); }, openProfile() {} };
     const signinBtn = $('signin-btn'), menu = $('user-menu'), nameModal = $('name-modal'), siModal = $('signin-modal');
-    const show = el => { el.hidden = false; document.body.classList.add('modal-open'); };
+    const show = el => { el.hidden = false; document.body.classList.add('modal-open'); const f = el.querySelector('#g-signin, input'); if (f) setTimeout(() => f.focus(), 50); };
     const hide = el => { el.hidden = true; if (nameModal.hidden && siModal.hidden) document.body.classList.remove('modal-open'); };
     signinBtn.addEventListener('click', () => Auth.openSignIn());
     if (!window.firebase || FIREBASE_CONFIG.apiKey.includes('YOUR')) return;
@@ -60,7 +60,11 @@ const FIREBASE_CONFIG = {
         try {
             profile = { u: ((await db.collection('u').doc(user.uid).get()).data() || {}).u || null };
             dbMissing = false;
-            if (profile.u) toast('✨ Welcome back, @' + profile.u + '!');
+            if (profile.u) {
+                let seen = false;
+                try { seen = sessionStorage.getItem('welcomed') === user.uid; sessionStorage.setItem('welcomed', user.uid); } catch (e) {}
+                if (!seen) toast('✨ Welcome back, @' + profile.u + '!');
+            }
         } catch (e) {
             dbMissing = true; profile = null;
             toast(e.code === 'permission-denied' ? '⚙️ Publish firestore.rules in Firebase first' : '⚙️ Create the Firestore database first (' + (e.code || e.message) + ')');
@@ -144,7 +148,7 @@ const FIREBASE_CONFIG = {
     
     async function load() {
         const a = A();
-        if (!a.db) { status = 'Add your Firebase config in auth.js to enable reviews.'; all = []; }
+        if (!a.db) { status = 'Add your Firebase config in app.js to enable reviews.'; all = []; }
         else {
             try {
                 const s = await a.db.collection('r').orderBy('c', 'desc').limit(200).get();
@@ -306,7 +310,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     const closeWA = () => { clearInterval(waT); $('wa-count').textContent = ''; $('wa-modal').hidden = true; document.body.classList.remove('modal-open'); };
     $('wa-stay').addEventListener('click', closeWA); $('wa-x').addEventListener('click', closeWA);
 
-    const upiLink = (id, a) => 'upi://pay?pa=' + UPI.id + '&pn=' + encodeURIComponent(UPI.name) + '&am=' + +(a / 100).toFixed(2) + '&cu=INR&tn=' + encodeURIComponent(id);
+    const upiLink = (id, a) => 'upi://pay?pa=' + UPI.id + '&pn=' + encodeURIComponent(UPI.name) + '&am=' + (a / 100).toFixed(2) + '&cu=INR&tn=' + encodeURIComponent(id);
 
     function paint(d) {
         if (!d) return; const s = d.s, st = $('qr-status');
@@ -463,26 +467,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Parallax Effect
     const parallaxElements = document.querySelectorAll('.parallax');
-    window.addEventListener('scroll', () => {
-        window.requestAnimationFrame(() => {
-            let scrollY = window.scrollY;
-            parallaxElements.forEach(el => {
-                let speed = el.getAttribute('data-speed');
-                el.style.transform = `translateY(${scrollY * speed}px)`;
+    if (parallaxElements.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(() => {
+                parallaxElements.forEach(el => {
+                    el.style.transform = `translateY(${window.scrollY * parseFloat(el.dataset.speed || 0)}px)`;
+                });
+                ticking = false;
             });
-        });
-    });
+        }, { passive: true });
+    }
 
     // 4. Mobile Menu
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
     if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-        });
+        const icon = menuToggle.querySelector('i');
+        const setMenu = open => {
+            navMenu.classList.toggle('active', open);
+            menuToggle.setAttribute('aria-expanded', open);
+            if (icon) { icon.classList.toggle('fa-bars', !open); icon.classList.toggle('fa-xmark', open); }
+        };
+        menuToggle.addEventListener('click', () => setMenu(!navMenu.classList.contains('active')));
+        navMenu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+        document.addEventListener('click', e => { if (!e.target.closest('#header')) setMenu(false); });
     }
 
     // 5. Scrollytelling Interactive Solar System Engine
@@ -536,13 +548,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const v = id => bookingForm.querySelector('#' + id).value.trim();
+            const say = m => (window.Auth && Auth.toast ? Auth.toast(m) : alert(m));
+            if (v('phone').replace(/\D/g, '').length < 10) return say('📞 Please enter a valid phone number.');
             const btn = bookingForm.querySelector('.submit-btn');
+            const msg = '🔮 Hello Astrologer Monika, I would like a reading.\n' +
+                'Name: ' + v('fullName') + '\nPhone: ' + v('phone') + '\n' +
+                'Date of birth: ' + v('dob').split('-').reverse().join('-') + '\n' +
+                'Time of birth: ' + v('tob') + '\nPlace of birth: ' + v('pob');
+            const url = 'https://wa.me/917065921594?text=' + encodeURIComponent(msg);
+            btn.disabled = true;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aligning Stars...';
+            const w = window.open(url, '_blank');
+            if (w) w.opener = null; else location.href = url;
+            say('✨ WhatsApp is opening. Press send to share your birth details with Monika.');
             setTimeout(() => {
-                alert("The cosmos have received your request! Astrologer Monika's team will contact you shortly.");
-                btn.innerHTML = 'Unlock My Destiny';
+                btn.disabled = false;
+                btn.innerHTML = '🔓 Unlock My Destiny';
                 bookingForm.reset();
-            }, 1200);
+            }, 1500);
         });
     }
 });
@@ -550,7 +574,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ===== UPGRADE ===== */
 document.addEventListener('DOMContentLoaded', () => {
     const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
-    const fine = matchMedia('(pointer:fine)').matches;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fine = matchMedia('(pointer:fine)').matches && !reduce;
 
     // Floating emojis in hero
     const fe = $('.float-emojis');
@@ -564,14 +589,18 @@ document.addEventListener('DOMContentLoaded', () => {
         fe.appendChild(s);
     });
 
+    // Marquee: duplicate the items once so the -50% loop is seamless
+    const mt = $('.marquee-track');
+    if (mt && !reduce) [...mt.children].forEach(n => { const c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); mt.appendChild(c); });
+
     // Scroll progress, back-to-top, active nav
     const bar = $('#progress'), top = $('#to-top');
     const page = location.pathname.split('/').pop().replace(/\.html$/, '') || 'index';
     $$('.nav-link').forEach(l => { const on = l.getAttribute('href').replace(/\.html$/, '') === page; l.classList.toggle('active', on); if (on) l.setAttribute('aria-current', 'page'); });
     addEventListener('scroll', () => {
         const h = document.documentElement;
-        bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - innerHeight) * 100) + '%';
-        top.classList.toggle('show', scrollY > 600);
+        if (bar) bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - innerHeight) * 100) + '%';
+        if (top) top.classList.toggle('show', scrollY > 600);
     }, { passive: true });
 
     // Cursor glow + sparkle trail
@@ -579,7 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const g = $('#glow'); let last = 0;
         addEventListener('mousemove', e => {
             g.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
-            if (Date.now() - last > 70) {
+            if (Date.now() - last > 70 && document.querySelectorAll('.spark').length < 25) {
                 last = Date.now();
                 const s = document.createElement('span'); s.className = 'spark';
                 s.textContent = ['✨', '⭐', '✦', '🌙', '💫'][Math.random() * 5 | 0];
@@ -621,17 +650,22 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const table = $('#tarot-table'), msg = $('#tarot-msg'), shuffleBtn = $('#shuffle-btn');
     let cards = [];
+    const shuffled = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    if (msg) msg.setAttribute('aria-live', 'polite');
     const build = () => {
         table.innerHTML = ''; cards = [];
-        [...deck].sort(() => Math.random() - .5).slice(0, 5).forEach((d, i) => {
+        shuffled(deck).slice(0, 5).forEach((d, i) => {
             const c = document.createElement('div');
             c.className = 'tcard'; c.style.setProperty('--r', (i - 2) * 5 + 'deg');
+            c.tabIndex = 0; c.setAttribute('role', 'button'); c.setAttribute('aria-label', 'Tarot card ' + (i + 1) + ', face down. Press to reveal.');
             c.innerHTML = `<div class="tface tback"><span>🔮</span></div><div class="tface tfront"><div class="num">${d[0]}</div><div class="sym">${d[2]}</div><h4>${d[1]}</h4><small>${d[3]}</small></div>`;
             c.addEventListener('click', () => {
                 cards.forEach(x => x.classList.remove('picked'));
                 c.classList.add('flipped', 'picked');
                 msg.textContent = `${d[2]} ${d[1]}: ${d[3]}`;
+                c.setAttribute('aria-label', `${d[1]}: ${d[3]}`);
             });
+            c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } });
             table.appendChild(c); cards.push(c);
         });
     };
@@ -651,7 +685,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Moon phase chip
 (() => {
     const el = document.getElementById('moon'); if (!el) return;
-    const age = ((Date.now() / 864e5 - 10.6) % 29.53 + 29.53) % 29.53;
-    const i = Math.round(age / 29.53 * 8) % 8;
+    const P = 29.530588853; // synodic month; reference new moon 2000-01-06 18:14 UTC
+    const age = ((Date.now() / 864e5 - 10962.7597) % P + P) % P;
+    const i = Math.round(age / P * 8) % 8;
     el.parentElement.innerHTML = ['🌑 New Moon', '🌒 Waxing Crescent', '🌓 First Quarter', '🌔 Waxing Gibbous', '🌕 Full Moon', '🌖 Waning Gibbous', '🌗 Last Quarter', '🌘 Waning Crescent'][i] + ' tonight';
 })();
