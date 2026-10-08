@@ -1,4 +1,5 @@
-/* PhonePe helper for Vercel serverless functions. Secrets come from Vercel Environment Variables, never from the repo. */
+/* One Vercel serverless function for /api/plans, /api/pay and /api/status. Secrets come from Vercel Environment Variables, never from the repo. */
+const { randomBytes } = require('crypto');
 const FIREBASE_API_KEY = 'AIzaSyCHWrBA5nuYOopFo8BmnkKLQMXCCOXfMdI'; // public web key, same as auth.js
 const E = process.env;
 const H = E.PHONEPE_LIVE === 'true'
@@ -16,7 +17,7 @@ async function token() {
     if (tok.e - 60 > Date.now() / 1000) return tok.t;
     const r = await fetch(H.auth, {
         method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ client_id: E.PHONEPE_CLIENT_ID, client_version: E.PHONEPE_CLIENT_VERSION, client_secret: E.PHONEPE_CLIENT_SECRET, grant_type: 'client_credentials' })
+        body: new URLSearchParams({ client_id: E.PHONEPE_CLIENT_ID, client_version: E.PHONEPE_CLIENT_VERSION || '1', client_secret: E.PHONEPE_CLIENT_SECRET, grant_type: 'client_credentials' })
     });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error('PhonePe auth failed ' + r.status + ' ' + JSON.stringify(j));
@@ -42,4 +43,35 @@ async function uid(req) {
     const j = await r.json().catch(() => ({}));
     return (r.ok && j.users && j.users[0] && j.users[0].localId) || null;
 }
-module.exports = { PLANS, pp, uid };
+
+const routes = {
+    plans: (req, res) => res.json(Object.entries(PLANS).map(([k, v]) => ({ k, n: v.n, p: v.p }))),
+
+    async pay(req, res) {
+        if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
+        const u = await uid(req);
+        if (!u) return res.status(401).json({ error: 'Please sign in first' });
+        const k = req.body && req.body.plan, plan = PLANS[k];
+        if (!plan) return res.status(400).json({ error: 'Unknown plan' });
+        const id = u + '-' + randomBytes(5).toString('hex'), site = (req.headers['x-forwarded-proto'] || 'https') + '://' + (req.headers['x-forwarded-host'] || req.headers.host);
+        const j = await pp('/pay', {
+            merchantOrderId: id, amount: plan.p, expireAfter: 1800, metaInfo: { udf1: k },
+            paymentFlow: { type: 'PG_CHECKOUT', message: plan.n, merchantUrls: { redirectUrl: site + '/pay.html?order=' + id } }
+        });
+        res.json({ url: j.redirectUrl });
+    },
+
+    async status(req, res) {
+        const u = await uid(req), id = req.body && req.body.order;
+        if (!u || typeof id !== 'string' || !id.startsWith(u + '-')) return res.status(403).json({ error: 'Not your order' });
+        res.json({ state: (await pp('/order/' + encodeURIComponent(id) + '/status')).state });
+    }
+};
+const errors = { pay: 'Payment error. Please try again.', status: 'Could not check payment' };
+
+module.exports = async (req, res) => {
+    const name = req.query.fn, fn = routes[name];
+    if (!fn) return res.status(404).json({ error: 'Not found' });
+    try { await fn(req, res); }
+    catch (e) { console.error(e.message); res.status(500).json({ error: errors[name] || 'Server error' }); }
+};
