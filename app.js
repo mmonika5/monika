@@ -458,8 +458,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealOnScroll = new IntersectionObserver(function(entries, observer) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target); 
+                const t = entry.target, d = parseFloat(getComputedStyle(t).transitionDelay) || 0;
+                t.classList.add('active');
+                setTimeout(() => { t.classList.add('settled'); t.style.transitionDelay = ''; }, (d + 1) * 1000);
+                observer.unobserve(t);
             }
         });
     }, revealOptions);
@@ -543,32 +545,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     steps.forEach(step => stepObserver.observe(step));
 
-    // 6. Form Submission Logic
-    const bookingForm = document.getElementById('booking-form');
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const v = id => bookingForm.querySelector('#' + id).value.trim();
-            const say = m => (window.Auth && Auth.toast ? Auth.toast(m) : alert(m));
-            if (v('phone').replace(/\D/g, '').length < 10) return say('📞 Please enter a valid phone number.');
-            const btn = bookingForm.querySelector('.submit-btn');
-            const msg = '🔮 Hello Astrologer Monika, I would like a reading.\n' +
-                'Name: ' + v('fullName') + '\nPhone: ' + v('phone') + '\n' +
-                'Date of birth: ' + v('dob').split('-').reverse().join('-') + '\n' +
-                'Time of birth: ' + v('tob') + '\nPlace of birth: ' + v('pob');
-            const url = 'https://wa.me/917065921594?text=' + encodeURIComponent(msg);
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aligning Stars...';
-            const w = window.open(url, '_blank');
-            if (w) w.opener = null; else location.href = url;
-            say('✨ WhatsApp is opening. Press send to share your birth details with Monika.');
-            setTimeout(() => {
-                btn.disabled = false;
-                btn.innerHTML = '🔓 Unlock My Destiny';
-                bookingForm.reset();
-            }, 1500);
-        });
-    }
 });
 
 /* ===== UPGRADE ===== */
@@ -622,18 +598,27 @@ document.addEventListener('DOMContentLoaded', () => {
         $$('.tilt').forEach(t => {
             t.addEventListener('mousemove', e => {
                 const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+                t.style.transition = 'transform .12s ease-out';
                 t.style.transform = `rotateY(${x * 18}deg) rotateX(${-y * 18}deg)`;
             });
-            t.addEventListener('mouseleave', () => t.style.transform = '');
+            t.addEventListener('mouseleave', () => { t.style.transition = ''; t.style.transform = ''; });
         });
         $$('.service-card').forEach(c => c.addEventListener('mousemove', e => {
             const r = c.getBoundingClientRect();
             c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
             const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+            c.style.transition = 'transform .12s ease-out, box-shadow .4s';
             c.style.transform = `translateY(-6px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
         }));
-        $$('.service-card').forEach(c => c.addEventListener('mouseleave', () => c.style.transform = ''));
+        $$('.service-card').forEach(c => c.addEventListener('mouseleave', () => { c.style.transition = ''; c.style.transform = ''; }));
     }
+
+    // Contact: copy WhatsApp number
+    const cp = $('#copy-num');
+    if (cp) cp.addEventListener('click', async () => {
+        const n = '+91 70659 21594';
+        try { await navigator.clipboard.writeText(n); window.Auth.toast('📋 Number copied'); } catch (e) { window.Auth.toast(n); }
+    });
 
     // Tarot
     const deck = [
